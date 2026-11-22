@@ -1,0 +1,81 @@
+name: Refresh Wisconsin fuel prices
+
+on:
+  schedule:
+    - cron: '40 10 * * *'
+      timezone: America/Chicago
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wisconsin-fuel-data-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    if: github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    outputs:
+      ref: ${{ steps.save.outputs.ref }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install browser for public GasBuddy listings
+        continue-on-error: true
+        run: |
+          npm install --no-package-lock
+          npx --no-install playwright install --with-deps chromium
+      - run: npm run refresh -- --gasbuddy-county-pages
+      - run: node scripts/update-history.mjs
+      - run: npm test
+      - name: Check refreshed site and data
+        run: |
+          npm run build
+          node tests/verify.mjs
+      - name: Commit current snapshots and county history
+        id: save
+        env:
+          UPDATE_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          data_files=(site/data/terminal-report.txt site/data/terminals.json site/data/fallback.json
+            site/data/gasbuddy-current.json site/data/published-prices.json site/data/history.json)
+          git add -- "${data_files[@]}"
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Wisconsin fuel data ($(TZ=America/Chicago date +%F))"
+            if ! git push origin "HEAD:refs/heads/$UPDATE_BRANCH"; then
+              git fetch origin "$UPDATE_BRANCH"
+              if ! git diff --quiet HEAD^ FETCH_HEAD -- "${data_files[@]}"; then
+                echo 'Fuel data changed concurrently. Leaving the new upstream data intact.'
+                exit 1
+              fi
+              git rebase FETCH_HEAD
+              npm test
+              npm run build
+              node tests/verify.mjs
+              git push origin "HEAD:refs/heads/$UPDATE_BRANCH"
+            fi
+            echo "ref=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy:
+    needs: refresh
+    if: needs.refresh.outputs.ref != ''
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/pages.yml
+    with:
+      ref: ${{ needs.refresh.outputs.ref }}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#153d38"><meta name="description" content="Explore Wisconsin gas prices and compare nearby reports with regional terminal-based cost estimates.">
+  <title>Wisconsin Fuel · Gas price map</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css">
+  <script src="vendor/leaflet.js" defer></script><script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./"><span class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v17M2 21h14M4 11h10M7 6h4M14 13h2a2 2 0 0 1 2 2v3a1.5 1.5 0 0 0 3 0V8l-4-4m2 2v4h2"/></svg></span><span>Wisconsin <b>Fuel</b></span></a>
+    <nav aria-label="Main"><span class="nav-active">Price map</span><button class="text-button" id="method-button">How it works <span>↗</span></button></nav>
+    <div class="top-right"><span class="preview-tag">EXPERIMENTAL PREVIEW</span><span class="state-tag">WI <span>· Regular 87</span></span></div>
+  </header>
+  <main>
+    <section class="page-heading"><div><div class="eyebrow">CURRENT PRICES · REGIONAL COST ESTIMATES</div><h1>Wisconsin gas prices</h1><p>Explore today’s reported prices and the estimated cost floor across Wisconsin.</p></div><div class="snapshot"><span class="status-dot"></span><div><strong id="snapshot-label">Loading price snapshot</strong><small id="snapshot-time">Checking saved reports…</small></div></div></section>
+    <section class="summary" aria-label="Wisconsin price summary">
+      <div class="summary-card"><span class="summary-symbol">↘</span><div><span>Lowest available price</span><strong id="summary-low">—</strong><small id="summary-low-place">Among fresh collected quotes</small></div></div>
+      <div class="summary-card"><span class="summary-symbol neutral">≋</span><div><span>Median collected price</span><strong id="summary-median">—</strong><small>Sample of available stations · not a state average</small></div></div>
+      <div class="summary-card"><span class="summary-symbol orange">⌁</span><div><span>Estimated minimum range</span><strong id="summary-floor">—</strong><small>Regional terminal costs + taxes + assumed delivery</small></div></div>
+      <div class="summary-card coverage-card"><div><span>Fresh price coverage</span><strong id="summary-coverage">— <em>/ 72 counties</em></strong><small id="summary-stations">Collecting source information</small></div><span class="coverage-badge">PARTIAL</span></div>
+    </section>
+    <div class="source-notice" id="source-notice"><span class="notice-icon">i</span><p id="source-message">Loading source status…</p><button id="sources-button">Data & sources <span>↗</span></button></div>
+    <section class="workspace">
+      <aside class="sidebar" aria-label="County price details">
+        <div class="search-area"><label for="place-search" class="sr-only">Find a county, city or station</label><div class="search-input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="place-search" type="search" placeholder="Find a county, city or station" autocomplete="off"><kbd>/</kbd></div><div id="search-results" class="search-results" hidden></div></div>
+        <div class="county-panel" id="county-panel" aria-live="polite"><p class="loading-copy">Loading Wisconsin…</p></div>
+      </aside>
+      <div class="map-column">
+        <div class="map-toolbar"><div class="segmented" role="group" aria-label="Map layer"><button data-layer="current" class="active" aria-pressed="true">Current prices</button><button data-layer="floor" aria-pressed="false">Estimated minimum</button><button data-layer="gap" aria-pressed="false">Room to fall</button></div><label class="source-select"><span class="sr-only">Price source</span><select id="source-filter"><option value="available">Available sources</option><option value="GasBuddy">GasBuddy only</option><option value="Kwik Trip">Kwik Trip direct</option><option value="FuelRadarDash">FuelRadarDash snapshot</option></select></label></div>
+        <div class="map-wrap"><div id="map" role="region" aria-label="Interactive Wisconsin gas price map"></div>
+          <div class="map-caption"><span class="status-dot"></span><span id="map-caption">Regular 87 · dollars per gallon</span></div>
+          <button id="fit-map" class="map-button fit-button" title="Show all Wisconsin" aria-label="Show all Wisconsin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M9 9h6v6H9z"/></svg></button>
+          <div class="map-bottom"><div id="legend" class="legend"></div><div class="map-options"><label><input id="show-stations" type="checkbox" checked> Station prices on zoom</label><label><input id="basemap" type="checkbox" checked> Street map</label></div></div>
+        </div>
+        <div class="map-footer"><span id="map-footer">Select a county to compare local prices.</span><button id="export-button" class="text-button">Download prices <span>↓</span></button></div>
+      </div>
+    </section>
+    <footer class="page-footer"><span><b>Good information. Less guesswork.</b> Reports can change before you reach the pump.</span><span>Independent project · Not affiliated with GasBuddy</span></footer>
+    <div id="app-error" role="alert" hidden></div>
+  </main>
+  <dialog id="info-dialog"><div class="dialog-top"><span class="eyebrow">THE NUMBERS BEHIND THE MAP</span><button id="close-dialog" aria-label="Close explanation">×</button></div><h2>A cost signal, not a crystal ball.</h2><p>The estimated minimum shows what regular gas could cost using regional wholesale prices. It helps you spot a gap between the pump and the cost of fuel. It does not predict when a station will change its price.</p>
+    <h3>Where the prices come from</h3><div id="source-details"></div>
+    <h3>How the estimate is calculated</h3><div class="formula">(Wholesale + 51.3¢ tax & fees + delivery) × 1.0918</div><p>We reuse Dane Fuel’s automatic terminal-based scenario. Federal gas tax is 18.4¢, Wisconsin tax is 30.9¢, and the state inspection fee is 2¢ per gallon. The estimate uses the 9.18% terminal markup and rounds upward to a tenth of a cent.</p><p>Each county uses its geographically nearest <em>quoted market center</em>, including adjacent states. This is a regional proxy; actual terminal location and retailer delivery costs may differ. Six southeast counties use regular reformulated gasoline (87RE10), rather than conventional ULC10.</p>
+    <label class="delivery-setting">Assumed delivery <span><input id="delivery-input" type="number" value="2.5" min="0" max="100" step="0.5"> ¢ / gallon</span></label>
+    <p>Wisconsin’s complete cost calculation compares terminal and invoice/replacement branches. Retailer costs, eligible prior-day prices and exceptions are not public here. This estimate is neither a verified legal minimum nor a guarantee of a future pump price.</p>
+    <h3>Reading “room to fall”</h3><p>We compare the lowest fresh, eligible price collected in a county with its estimated floor. A gap of at least 15¢ is labeled “Room to fall”; a gap of 8¢ or less is “Near estimated floor”; between those is “Keep an eye on prices.” These are transparent comparison thresholds, not a trained forecast. Limited brand coverage can miss cheaper stations. Savings are hypothetical if the price reaches the floor; no arrival date is estimated.</p>
+    <p>GasBuddy reports expire after 24 hours. Direct quotes expire 24 hours after retrieval. Published snapshots expire 24 hours after the source update. Individual price-change times are unavailable for either source. Terminal estimates are flagged after 96 hours. Missing reports never become zero prices.</p>
+    <div class="source-links"><a href="https://datcp.wi.gov/Pages/Programs_Services/UnfairSalesAct.aspx" target="_blank" rel="noreferrer">Wisconsin cost guidance ↗</a><a href="https://old.axxispetro.com/download/wisconsin-cta.txt" target="_blank" rel="noreferrer">AXXIS terminal report ↗</a><a href="https://dnr.wisconsin.gov/topic/AirQuality/Mobile.html" target="_blank" rel="noreferrer">Fuel blend requirements ↗</a></div>
+  </dialog>
+</body>
+</html>

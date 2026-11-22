@@ -1,0 +1,53 @@
+name: Deploy Wisconsin Fuel to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        description: Commit to publish after the price refresh
+        type: string
+        required: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the static site
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Stage the site for publication
+        run: |
+          rsync -a \
+            --exclude='/data/gasbuddy-export.br.b64' \
+            --exclude='/data/gasbuddy-page-sample.json' \
+            --exclude='/data/geocode-cache.json' \
+            --exclude='/data/terminal-report.txt' \
+            site/ "$RUNNER_TEMP/wisconsin-fuel/"
+      - name: Upload static files
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/wisconsin-fuel
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
