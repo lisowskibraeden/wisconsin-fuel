@@ -64,6 +64,14 @@ test('the chart preserves separate gaps in the quote and estimate series', () =>
 });
 
 test('selecting a history date updates its quote and changing counties renders local estimates', () => {
+  const daneDays = {
+    '2026-11-01':{quotes:{GasBuddy:{standard:3.499}}},
+    '2026-11-12':{quotes:{GasBuddy:{standard:3.299}}},
+    '2026-11-21':{quotes:{GasBuddy:{standard:3.099}}},
+  };
+  const milwaukeeDays = {
+    '2026-11-20':{terminal:{wholesale:2.275, market:'Milwaukee, WI', product:'87RE10'}},
+  };
   const target = {
     setAttribute(name, value) { this[name] = value; },
     getBoundingClientRect() { return {left:0, width:300}; },
@@ -76,7 +84,7 @@ test('selecting a history date updates its quote and changing counties renders l
   const before = globalThis.document;
   globalThis.document = {createElement:() => ({}), createTextNode:text => text};
   try {
-    renderHistory(panel, archived['55025'], options, view);
+    renderHistory(panel, daneDays, options, view);
     assert.match(panel.innerHTML, /Lowest collected quote/);
     assert.match(panel.innerHTML, /Estimated minimum/);
     assert.equal(view.date, '2026-11-21');
@@ -84,12 +92,14 @@ test('selecting a history date updates its quote and changing counties renders l
     elements.input.oninput();
     assert.equal(view.date, '2026-11-01');
     assert.equal(elements.input['aria-valuetext'], 'Nov 1, 2026');
+    assert.match(elements['.history-reading'].children[1], /\$3\.499/);
     elements.svg.onclick({clientX:145});
-    assert.notEqual(view.date, '2026-11-01');
+    assert.equal(view.date, '2026-11-12');
     view.date = null;
-    renderHistory(panel, archived['55079'], options, view);
+    renderHistory(panel, milwaukeeDays, options, view);
     assert.match(panel.innerHTML, /history-estimate/);
-    assert.match(elements['.history-reading'].children[0].textContent, /Nov/);
+    assert.equal(elements['.history-reading'].children[0].textContent, 'Nov 20, 2026');
+    assert.match(elements['.history-reading'].children[2], /Milwaukee, WI/);
   } finally {
     globalThis.document = before;
   }
