@@ -37,8 +37,10 @@ jobs:
       - name: Install browser for public GasBuddy listings
         continue-on-error: true
         run: |
-          npm install --no-package-lock
-          npx --no-install playwright install --with-deps chromium
+          timeout 150s bash -e -c '
+            npm install --no-package-lock --fetch-retries=1
+            npx --no-install playwright install --with-deps chromium
+          '
       - run: npm run refresh -- --gasbuddy-county-pages
       - run: node scripts/update-history.mjs
       - run: npm test
