@@ -71,7 +71,8 @@ dialog p, dialog li, .formula, .delivery-setting { font-size: .9375rem; }
 
 .station-pin { position: relative; display: flex; align-items: center; justify-content: center; gap: 5px; min-height: 32px; width: max-content; min-width: 62px; max-width: 92px; margin-inline: auto; padding: 2px 6px; }
 .station-pin::after { content: ''; position: absolute; left: calc(50% - 3px); bottom: -4px; width: 6px; height: 6px; border: solid #bfd3c6; border-width: 0 1px 1px 0; background: inherit; transform: rotate(45deg); }
-.station-pin .station-logo { width: 26px; height: 23px; padding: 1px; border: 0; border-radius: 3px; }
+.station-pin .station-logo { display: block; width: 26px; height: 23px; padding: 1px; border: 0; border-radius: 3px; overflow: hidden; }
+.leaflet-marker-pane .station-pin .station-logo img { width: 100%; }
 .popup-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
 
 .history-panel { margin: 16px 0; padding: 14px 0 12px; border-block: 1px solid var(--line); }

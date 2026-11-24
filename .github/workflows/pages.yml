@@ -12,6 +12,7 @@ on:
         required: true
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -47,7 +48,23 @@ jobs:
       - name: Upload static files
         uses: actions/upload-pages-artifact@v4
         with:
+          name: github-pages-${{ github.run_attempt }}
           path: ${{ runner.temp }}/wisconsin-fuel
+      - name: Wait for the uploaded artifact to be available
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAGES_ARTIFACT: github-pages-${{ github.run_attempt }}
+        run: |
+          for attempt in {1..6}; do
+            if count=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?name=$PAGES_ARTIFACT" --jq .total_count) && [[ "$count" == 1 ]]; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo 'Pages artifact did not become available.' >&2
+          exit 1
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
