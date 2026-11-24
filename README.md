@@ -6,6 +6,8 @@ Open **preview.html** directly in a browser for the self-contained snapshot, or 
 
 Select a county on the map or in the county list to see its price history. The graph shows the lowest collected regular-gas quote and the estimated minimum on dates with saved observations. Missing dates remain gaps. The live map has current-price, estimated-minimum and price-headroom layers, plus source filters, station details, membership filtering, configurable delivery costs, fill-up savings scenarios and CSV export.
 
+At street zoom, **Available sources** shows dated station prices alongside mapped fuel stops. White markers identify stations with no price shown. Close-together stations use small clickable markers so prices and logos have room. The location catalog comes from a Wisconsin OpenStreetMap extract. Its data is © OpenStreetMap contributors and available under the [Open Database License](https://www.openstreetmap.org/copyright). The dated price snapshots are separate files with their own sources.
+
 ## GitHub Pages
 
 The Pages workflow publishes `site/` on pushes to `main`. The refresh workflow is scheduled daily for **10:40 a.m. America/Chicago**, including daylight saving time. It can also be run from the Actions tab. GitHub may queue scheduled runs when Actions is busy.
@@ -57,6 +59,7 @@ The estimated minimum reuses Dane Fuel's automatic terminal-cost scenario: `(who
 - [FuelRadarDash Wisconsin Kwik Trip snapshot](https://fuelradardash.com/gas-prices/brands/kwik-trip/wisconsin/)
 - [Kwik Trip official store directory](https://www.kwiktrip.com/maps-downloads/store-list)
 - [OpenStreetMap tile policy](https://operations.osmfoundation.org/policies/tiles/)
+- [Geofabrik Wisconsin OpenStreetMap extract](https://download.geofabrik.de/north-america/us/wisconsin.html)
 - [GitHub Pages publishing sources](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
 - [GitHub Actions schedules](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#onschedule)
 - County geometry: U.S. Census-derived GeoJSON distributed in Plotly datasets; Leaflet 1.9.4 is vendored with its copyright notice.

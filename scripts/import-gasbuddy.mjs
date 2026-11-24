@@ -3,6 +3,13 @@ import {fileURLToPath} from 'node:url';
 import {countyModels,fresh} from '../site/model.js';
 import {reportTime} from './core.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
+export function cachedStationLocation(station, locationCache, counties) {
+  const cached = locationCache[`${station.address}, ${station.city}, WI`.toUpperCase()];
+  const county = counties.find(candidate => candidate.id === cached?.countyFips);
+  const {x:lng, y:lat} = cached?.coordinates ?? {};
+  if (!county || !Number.isFinite(lat) || !Number.isFinite(lng)) return {};
+  return {countyFips:county.id, county:county.name, countyAuthority:'US Census Geocoder', lat, lng};
+}
 export function parsePageSample(sample,geo,{locationCache={},fallback=[]}={}) {
   const counties=countyModels(geo),stations=new Map(),rejected=[];
   const normalize=s=>String(s||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
@@ -14,11 +21,10 @@ export function parsePageSample(sample,geo,{locationCache={},fallback=[]}={}) {
     if(!reportedAt){rejected.push(id);continue;}
     const station={id,name,address,city,state:'WI',fuel:'regular',price,reportedAt,observedAt,reportAgeLabel:age,reportTimePrecision:'relative source display; approximate',source:'GasBuddy',membership:/\bcostco\b|\bsam['’]?s club\b/i.test(name),payment:'unspecified',url:'https://www.gasbuddy.com/station/'+id,county:county.name,countyFips:county.id,countyAuthority:'GasBuddy county page (not independently geocoded)',countyPage:page[4]||'https://www.gasbuddy.com/gasprices/wisconsin',timeBasis:'reported'};
     // Coordinates come only from exact street/city matches; never place a station at a county centroid.
-    const key=`${address}, ${city}, WI`.toUpperCase(),cached=locationCache[key];
+    const cached=cachedStationLocation(station,locationCache,counties);
     const direct=fallback.find(s=>normalize(s.address)===normalize(address)&&normalize(s.city)===normalize(city));
-    if(cached?.countyFips?.startsWith('55')){
-      const verified=counties.find(c=>c.id===cached.countyFips);if(!verified){rejected.push(id);continue;}
-      Object.assign(station,{countyFips:verified.id,county:verified.name,countyAuthority:'US Census Geocoder',lat:cached.coordinates?.y,lng:cached.coordinates?.x});
+    if(cached.countyFips){
+      Object.assign(station,cached);
     }else if(direct){Object.assign(station,{countyFips:direct.countyFips,county:direct.county,countyAuthority:'Exact address match to Kwik Trip county field',lat:direct.lat,lng:direct.lng});}
     const previous=stations.get(id);if(!previous||Date.parse(reportedAt)>Date.parse(previous.reportedAt))stations.set(id,station);
   }

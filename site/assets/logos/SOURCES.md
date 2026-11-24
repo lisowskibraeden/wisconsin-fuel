@@ -8,7 +8,7 @@ Logos are unmodified brand marks displayed solely to identify station brands; no
 - CITGO: https://www.citgo.com/news-and-media/corporate-logos-and-standards/ (official color mark).
 - Amoco: https://www.bp.com/en/global/corporate/who-we-are/our-brands.html (Amoco brand card).
 
-Unknown brands use a neutral initial until a sourced logo is added.
+Stations without a sourced logo use a neutral marker.
 
 Additional logos observed on GasBuddy's public Madison search, November 2, 2026:
 
@@ -37,3 +37,6 @@ Wisconsin preview additions:
 - stop-n-go.png: https://www.kwiktrip.com/wordpress/wp-content/uploads/2021/04/SNG-Hero.png
 - arco.png: https://www.arco.com/img/nav-arco-logo.png
 - marathon.png: https://htpenergy.com/wp-content/uploads/2019/10/marathon.png
+- speedway.svg: https://commons.wikimedia.org/wiki/File:Speedway_LLC_logo.svg
+- loves.svg: https://commons.wikimedia.org/wiki/File:Love%27s_logo.svg
+- pilot.svg: https://commons.wikimedia.org/wiki/File:Pilot_Travel_Centers_logo.svg

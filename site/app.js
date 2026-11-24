@@ -1,6 +1,7 @@
 import {eligible,fresh,sourceTime,floorFor,compare,countyModels,inside} from './model.js';
 import {stationLogoFile} from './brands.js';
 import {renderHistory} from './history.js';
+import {createLocationLookup, hasLocation, unpricedLocations} from './locations.js';
 const $=id=>document.getElementById(id),money=v=>Number.isFinite(v)?'$'+v.toFixed(3):'—';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmtDate=value=>new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(value));
@@ -11,12 +12,15 @@ const state={layer:'current',county:'55025',source:'available',members:stored.me
 let map,geoLayer,counties=[],allStations=[],reports=[],stationLayer,labelLayer,selectedStation=null,searchChoices=[],streetLayer;
 let countyHistoryData = {};
 let currentRows = [];
+let stationLocations = [];
+let mapLocations = [];
+let matchLocation = createLocationLookup([]);
 const historyView = {window:30, date:null};
 const streetZoom = 10;
 const streetDetail = () => Boolean(map && map.getZoom() >= streetZoom && $('basemap').checked);
 
-function stationLogo(name) {
-  const file = stationLogoFile(name);
+function stationLogo(name, brand) {
+  const file = stationLogoFile(brand || name) || stationLogoFile(name);
   const url = file && (typeof embeddedLogos === 'undefined' ? 'assets/logos/' + file : embeddedLogos[file]);
   return url ? `<span class="station-logo"><img src="${esc(url)}" alt="" decoding="async"></span>` : '';
 }
@@ -32,7 +36,7 @@ async function load(url, defaultValue) {
 }
 const stationsFor=id=>countyRows.get(id)||[];
 const estimate=c=>countyFloors.get(c.id);
-function recompute(){const now=Date.now();currentRows=eligible(allStations,{now,source:state.source,members:state.members,cash:state.cash});countyRows=new Map(counties.map(c=>[c.id,[]]));for(const s of currentRows)countyRows.get(s.countyFips)?.push(s);countyFloors=new Map(counties.map(c=>[c.id,floorFor(c,reports,{now,delivery:state.delivery})]));currentRange=extent([...countyRows.values()].map(r=>r[0]?.price).filter(Number.isFinite));floorRange=extent([...countyFloors.values()].filter(f=>f&&!f.stale).map(f=>f.price));}
+function recompute(){const now=Date.now();currentRows=eligible(allStations,{now,source:state.source,members:state.members,cash:state.cash});mapLocations=unpricedLocations(stationLocations,currentRows,matchLocation);countyRows=new Map(counties.map(c=>[c.id,[]]));for(const s of currentRows)countyRows.get(s.countyFips)?.push(s);countyFloors=new Map(counties.map(c=>[c.id,floorFor(c,reports,{now,delivery:state.delivery})]));currentRange=extent([...countyRows.values()].map(r=>r[0]?.price).filter(Number.isFinite));floorRange=extent([...countyFloors.values()].filter(f=>f&&!f.stale).map(f=>f.price));}
 const palette=['#d5e6d6','#a6cfb4','#75b59b','#438b77','#205e54'];
 const floorsPalette=['#e2e9c5','#c6d7a7','#a4bf8a','#7fa46e','#56845b'];
 function extent(values){if(!values.length)return [0,1];return [Math.min(...values),Math.max(...values)];}
@@ -63,43 +67,65 @@ function renderCounty(){const c=counties.find(c=>c.id===state.county),rows=stati
 }
 function zoomCounty(c){const layer=geoLayer.getLayers().find(l=>l.feature.id===c.id);map.fitBounds(layer.getBounds(),{padding:[40,40],maxZoom:10});}
 function selectCounty(id,{zoom=false}={}){if(state.county!==id)historyView.date=null;state.county=id;selectedStation=null;renderCounty();renderMap();if(zoom)zoomCounty(counties.find(c=>c.id===id));}
-function renderLegend(){const title=state.layer==='current'?'Lowest collected price / gal':state.layer==='floor'?'Estimated minimum / gal':'Gap from lowest quote to estimate';const [min,max]=state.layer==='current'?currentExtent():floorExtent();let contents='';if(state.layer==='gap')contents=`<div class="legend-labels"><span>Near floor</span><span>Watch</span><span>15¢+ gap</span></div><div class="legend-scale" style="margin-top:6px"><span style="background:#82b59b"></span><span style="background:#decfa5"></span><span style="background:#cd9a6a"></span></div>`;else contents=`<div class="legend-scale">${(state.layer==='floor'?floorsPalette:palette).map(c=>`<span style="background:${c}"></span>`).join('')}</div><div class="legend-labels"><span>${min?money(min):'No quotes'}</span><span>${max&&min?money(max):''}</span></div>`;$('legend').innerHTML=`<div class="legend-title">${title}</div>${contents}<div class="legend-empty"><i></i>${state.layer==='floor'?'Unavailable or stale estimate':'No fresh collected reports'}</div>`;$('map-caption').textContent=state.layer==='current'?(streetDetail()?'Street view · regular 87':'Regular 87 · lowest fresh quote per county'):state.layer==='floor'?'Regional cost estimates · not a price forecast':'Price headroom · timing is not predicted';}
+function renderLegend(){
+  if (state.layer === 'current' && map.getZoom() >= streetZoom) {
+    const locations = state.source === 'available' ? '<span><i class="station-dot unpriced"></i>No price shown</span>' : '';
+    $('legend').innerHTML = `<div class="legend-title">Station locations</div><div class="station-legend"><span><i class="station-dot priced"></i>Recent price</span>${locations}</div>`;
+    $('map-caption').textContent = 'Station locations · regular 87';
+    return;
+  }
+  const title=state.layer==='current'?'Lowest collected price / gal':state.layer==='floor'?'Estimated minimum / gal':'Gap from lowest quote to estimate';const [min,max]=state.layer==='current'?currentExtent():floorExtent();let contents='';if(state.layer==='gap')contents=`<div class="legend-labels"><span>Near floor</span><span>Watch</span><span>15¢+ gap</span></div><div class="legend-scale" style="margin-top:6px"><span style="background:#82b59b"></span><span style="background:#decfa5"></span><span style="background:#cd9a6a"></span></div>`;else contents=`<div class="legend-scale">${(state.layer==='floor'?floorsPalette:palette).map(c=>`<span style="background:${c}"></span>`).join('')}</div><div class="legend-labels"><span>${min?money(min):'No quotes'}</span><span>${max&&min?money(max):''}</span></div>`;$('legend').innerHTML=`<div class="legend-title">${title}</div>${contents}<div class="legend-empty"><i></i>${state.layer==='floor'?'Unavailable or stale estimate':'No fresh collected reports'}</div>`;$('map-caption').textContent=state.layer==='current'?'Regular 87 · lowest fresh quote per county':state.layer==='floor'?'Regional cost estimates · not a price forecast':'Price headroom · timing is not predicted';}
+function renderStationPins() {
+  if (!$('show-stations').checked) return;
+  const bounds = map.getBounds().pad(.1);
+  const displayed = state.source === 'available' ? [...currentRows, ...mapLocations] : currentRows;
+  const candidates = displayed.filter(hasLocation).flatMap(station => {
+    const coordinates = [station.lat, station.lng];
+    if (!bounds.contains(coordinates)) return [];
+    return [{station, coordinates, point:map.latLngToContainerPoint(coordinates)}];
+  });
+
+  for (const candidate of candidates) {
+    const {station, coordinates, point} = candidate;
+    const priced = Number.isFinite(station.price);
+    const logo = stationLogo(station.name, station.brand);
+    const label = priced ? money(station.price) : 'No price shown';
+    const width = priced ? 104 : 46;
+    const compact = (!priced && !logo) || candidates.some(other => other !== candidate &&
+      Math.abs(point.x - other.point.x) < width / 2 + 9 &&
+      Math.abs(point.y - other.point.y) < 26);
+    const selected = station.countyFips === state.county ? ' active' : '';
+    const kind = priced ? 'priced' : 'unpriced';
+    const icon = compact ? {
+      html:`<span class="station-dot ${kind}${selected}"></span>`,
+      iconSize:[16,16], iconAnchor:[8,8], popupAnchor:[0,-9],
+    } : {
+      html:`<div class="station-pin ${kind}${selected}">${logo}${priced ? `<span class="station-pin-price">${label}</span>` : ''}</div>`,
+      iconSize:[width,34], iconAnchor:[width / 2,17], popupAnchor:[0,-17],
+    };
+    const title = `${station.name} · ${label}`;
+    const marker = L.marker(coordinates, {title, icon:L.divIcon({className:'station-marker', ...icon})});
+    marker.on('add', () => marker.getElement()?.setAttribute('aria-label', title));
+    const address = [station.address, station.city].filter(Boolean).map(esc).join(', ');
+    const details = priced
+      ? `${esc(station.source)} · ${timeLabel(station)} ${age(sourceTime(station))}`
+      : 'Station location from OpenStreetMap';
+    marker.bindPopup(`<div class="popup-brand">${logo}<b>${esc(station.name)}</b></div>${address}<span class="popup-price">${label}</span>${details}${station.membership ? ' · Membership' : ''}<br><a href="${esc(station.url)}" target="_blank" rel="noreferrer">View source ↗</a>`, {autoPan:false});
+    marker.on('click', () => {
+      if (state.county !== station.countyFips) historyView.date = null;
+      state.county = station.countyFips;
+      renderCounty();
+      geoLayer.setStyle(layerStyle);
+    });
+    stationLayer.addLayer(marker);
+  }
+}
+
 function renderPins() {
   labelLayer.clearLayers();
   stationLayer.clearLayers();
-  const zoom = map.getZoom();
-  if (zoom >= streetZoom && state.layer === 'current') {
-    if (!$('show-stations').checked) return;
-    const rows = currentRows;
-    const bounds = map.getBounds().pad(.1);
-    const occupied = [];
-    for (const station of rows) {
-      if (!Number.isFinite(station.lat) || !Number.isFinite(station.lng)) continue;
-      const location = [station.lat, station.lng];
-      if (!bounds.contains(location)) continue;
-      const point = map.latLngToContainerPoint(location);
-      if (zoom < 15 && occupied.some(other => Math.abs(point.x-other.x)<96 && Math.abs(point.y-other.y)<36)) continue;
-      occupied.push(point);
-      const logo = stationLogo(station.name);
-      const selected = station.countyFips === state.county ? 'active' : '';
-      const marker = L.marker(location, {
-        title: `${station.name}: ${money(station.price)}`,
-        icon: L.divIcon({
-          className: 'price-pin',
-          html: `<div class="price-pill station-pin ${selected}">${logo}${money(station.price)}</div>`,
-          iconSize: [92, 33],
-          iconAnchor: [46, 34],
-          popupAnchor: [0, -29],
-        }),
-      });
-      marker.bindPopup(`<div class="popup-brand">${logo}<b>${esc(station.name)}</b></div>${esc(station.address)}, ${esc(station.city)}<span class="popup-price">${money(station.price)}</span>${esc(station.source)} · ${timeLabel(station)} ${age(sourceTime(station))}<br>${station.timeBasis==='reported'?'':'Individual price time unavailable.<br>'}<a href="${esc(station.url)}" target="_blank" rel="noreferrer">View source ↗</a>`, {autoPan: false});
-      marker.on('click', () => {
-        state.county = station.countyFips;
-        renderCounty();
-        geoLayer.setStyle(layerStyle);
-      });
-      stationLayer.addLayer(marker);
-    }
+  if (map.getZoom() >= streetZoom && state.layer === 'current') {
+    renderStationPins();
     return;
   }
   const points=[],ordered=[...counties].sort((a,b)=>(b.id===state.county)-(a.id===state.county)||stationsFor(b.id).length-stationsFor(a.id).length);
@@ -107,8 +133,8 @@ function renderPins() {
 }
 function renderMap(){if(!map)return;geoLayer.setStyle(layerStyle);geoLayer.eachLayer(layer=>{const c=counties.find(c=>c.id===layer.feature.id);layer.setTooltipContent(countyTooltip(c));if(c.id===state.county)layer.bringToFront();});renderPins();renderLegend();}
 function render(){recompute();renderSummary();renderCounty();renderMap();}
-function initializeMap(geo){map=L.map('map',{zoomControl:false,minZoom:5,maxZoom:19,scrollWheelZoom:true,attributionControl:true});streetLayer=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',maxZoom:19,opacity:1}).addTo(map);geoLayer=L.geoJSON(geo,{style:layerStyle,onEachFeature:(f,layer)=>{const c=counties.find(c=>c.id===f.id);layer.bindTooltip(countyTooltip(c),{sticky:true});layer.on({click:()=>selectCounty(c.id),mouseover:()=>layer.setStyle({weight:2,color:'#658570'}),mouseout:()=>geoLayer.resetStyle(layer)});layer.on('add',()=>{const path=layer.getElement();if(path){path.setAttribute('tabindex','0');path.setAttribute('role','button');path.setAttribute('aria-label',c.name+' County');path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectCounty(c.id);}});}});}}).addTo(map);stationLayer=L.layerGroup().addTo(map);labelLayer=L.layerGroup().addTo(map);L.control.zoom({position:'topright'}).addTo(map);map.fitBounds(geoLayer.getBounds(),{padding:[35,55]});map.on('moveend',renderPins);map.on('zoomend',()=>{geoLayer.setStyle(layerStyle);renderLegend();});$('fit-map').onclick=()=>map.fitBounds(geoLayer.getBounds(),{padding:[35,55]});$('show-stations').onchange=renderPins;$('basemap').onchange=e=>{if(e.target.checked)streetLayer.addTo(map);else map.removeLayer(streetLayer);renderMap();};map.attributionControl.addAttribution('<a href="https://github.com/plotly/datasets/blob/master/geojson-counties-fips.json" target="_blank" rel="noreferrer">County boundaries: Census via Plotly</a>');}
-function search(){const term=$('place-search').value.trim().toLowerCase();if(!term){$('search-results').hidden=true;return;}searchChoices=[];for(const c of counties.filter(c=>c.name.toLowerCase().includes(term)))searchChoices.push({label:c.name+' County',detail:'Wisconsin · explore local prices',id:c.id});const cities=new Set();for(const s of allStations){const city=s.city.toLowerCase();if(city.includes(term)&&!cities.has(city)){cities.add(city);searchChoices.push({label:s.city.replace(/\b\w/g,c=>c.toUpperCase()),detail:s.county+' County',id:s.countyFips});}}if(searchChoices.length<4)for(const s of allStations.filter(s=>(s.name+' '+s.address).toLowerCase().includes(term)).slice(0,6))searchChoices.push({label:s.name,detail:s.address+', '+s.city,id:s.countyFips,station:s});searchChoices=searchChoices.slice(0,8);$('search-results').hidden=false;$('search-results').innerHTML=searchChoices.length?searchChoices.map((r,i)=>`<button data-result="${i}">${esc(r.label)}<small>${esc(r.detail)}</small></button>`).join(''):'<p>No match. Try a Wisconsin county name.</p>';$('search-results').querySelectorAll('button').forEach(b=>b.onclick=()=>chooseSearch(Number(b.dataset.result)));}
+function initializeMap(geo){map=L.map('map',{zoomControl:false,minZoom:5,maxZoom:19,scrollWheelZoom:true,attributionControl:true});streetLayer=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',maxZoom:19,opacity:1}).addTo(map);geoLayer=L.geoJSON(geo,{style:layerStyle,onEachFeature:(f,layer)=>{const c=counties.find(c=>c.id===f.id);layer.bindTooltip(countyTooltip(c),{sticky:true});layer.on({click:()=>selectCounty(c.id),mouseover:()=>layer.setStyle({weight:2,color:'#658570'}),mouseout:()=>geoLayer.resetStyle(layer)});layer.on('add',()=>{const path=layer.getElement();if(path){path.setAttribute('tabindex','0');path.setAttribute('role','button');path.setAttribute('aria-label',c.name+' County');path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectCounty(c.id);}});}});}}).addTo(map);stationLayer=L.layerGroup().addTo(map);labelLayer=L.layerGroup().addTo(map);L.control.zoom({position:'topright'}).addTo(map);map.fitBounds(geoLayer.getBounds(),{padding:[35,55]});map.on('moveend',renderPins);map.on('zoomend',()=>{geoLayer.setStyle(layerStyle);renderLegend();});$('fit-map').onclick=()=>map.fitBounds(geoLayer.getBounds(),{padding:[35,55]});$('show-stations').onchange=renderPins;$('basemap').onchange=e=>{if(e.target.checked)streetLayer.addTo(map);else map.removeLayer(streetLayer);renderMap();};map.attributionControl.addAttribution('<a href="https://www.openstreetmap.org/copyright">Station locations © OpenStreetMap contributors</a>');map.attributionControl.addAttribution('<a href="https://github.com/plotly/datasets/blob/master/geojson-counties-fips.json" target="_blank" rel="noreferrer">County boundaries: Census via Plotly</a>');}
+function search(){const term=$('place-search').value.trim().toLowerCase();if(!term){$('search-results').hidden=true;return;}searchChoices=[];for(const c of counties.filter(c=>c.name.toLowerCase().includes(term)))searchChoices.push({label:c.name+' County',detail:'Wisconsin · explore local prices',id:c.id});const cities=new Set();for(const s of allStations){const city=s.city.toLowerCase();if(city.includes(term)&&!cities.has(city)){cities.add(city);searchChoices.push({label:s.city.replace(/\b\w/g,c=>c.toUpperCase()),detail:s.county+' County',id:s.countyFips});}}if(searchChoices.length<4)for(const s of [...allStations,...stationLocations].filter(s=>(s.name+' '+s.address).toLowerCase().includes(term)).slice(0,6))searchChoices.push({label:s.name,detail:s.address+', '+s.city,id:s.countyFips,station:s});searchChoices=searchChoices.slice(0,8);$('search-results').hidden=false;$('search-results').innerHTML=searchChoices.length?searchChoices.map((r,i)=>`<button data-result="${i}">${esc(r.label)}<small>${esc(r.detail)}</small></button>`).join(''):'<p>No match. Try a Wisconsin county name.</p>';$('search-results').querySelectorAll('button').forEach(b=>b.onclick=()=>chooseSearch(Number(b.dataset.result)));}
 function chooseSearch(i){const r=searchChoices[i];if(!r)return;$('place-search').value=r.label;$('search-results').hidden=true;selectCounty(r.id,{zoom:true});if(r.station&&Number.isFinite(r.station.lat))map.setView([r.station.lat,r.station.lng],12);}
 function openInfo(){$('info-dialog').showModal();}
 function download(){const rows=eligible(allStations,{source:state.source,members:state.members,cash:state.cash}),head=['station','address','city','county','source','regular_price','reported_at','retrieved_at','time_basis','estimated_minimum','terminal_market','terminal_date','url','published_at'];const csv=[head,...rows.map(s=>{const c=counties.find(c=>c.id===s.countyFips),f=c?estimate(c):null;return [s.name,s.address,s.city,s.county,s.source,s.price,s.reportedAt||'',s.timeBasis==='published'?'':s.observedAt,s.timeBasis,f?.price??'',f?.market.name??'',f?.reportDate??'',s.url,s.timeBasis==='published'?s.observedAt:''];})].map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='wisconsin-fuel-'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
@@ -146,11 +172,12 @@ function applyPriceSnapshots({terminals:terminalData, gas:gasSnapshot, fallback,
       county = counties.find(candidate => inside([station.lng, station.lat], candidate.feature.geometry));
     }
     if (!county) continue;
+    const place = !hasLocation(station) && matchLocation({...station, countyFips:county.id});
     const key = `${station.source}:${station.id}`;
     const previous = byID.get(key);
     const timestamp = Date.parse(sourceTime(station));
     if (Number.isFinite(timestamp) && (!previous || timestamp >= Date.parse(sourceTime(previous)))) {
-      byID.set(key, {...station, countyFips:county.id, county:county.name});
+      byID.set(key, {...station, ...(place ? {lat:place.lat, lng:place.lng} : {}), countyFips:county.id, county:county.name});
     }
   }
   allStations = [...byID.values()];
@@ -167,12 +194,15 @@ async function refreshDisplayedPrices() {
 }
 
 async function init(){try{
-  const [geo, archived, initial] = await Promise.all([
+  const [geo, archived, initial, locations] = await Promise.all([
     load('data/counties.geojson'),
     load('data/gasbuddy-archive.json', {stations:[]}),
     readPriceSnapshots(),
+    load('data/station-locations.json', {stations:[]}),
   ]);
   counties = countyModels(geo);
+  stationLocations = locations.stations;
+  matchLocation = createLocationLookup(stationLocations);
   archivedStations = archived.stations ?? [];
   snapshots = initial;
   applyPriceSnapshots(snapshots);

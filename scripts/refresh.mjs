@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {countyModels, fresh, inside, MARKETS, parseTerminals, sourceTime} from '../site/model.js';
 import {collectCountyPages} from './gasbuddy-county-pages.mjs';
-import {parsePageSample} from './import-gasbuddy.mjs';
+import {cachedStationLocation, parsePageSample} from './import-gasbuddy.mjs';
 import {normalizePublishedPrices} from './import-published-prices.mjs';
 import {parseStoreDirectory, readPublisherSnapshot, STORE_DIRECTORY} from './source-pages.mjs';
 
@@ -161,12 +161,15 @@ export async function refresh({data=DATA,fetchResource=fetch,collectGasBuddy=nul
     }),
     attempt('GasBuddy', async () => {
       const dane = await danePromise;
+      const locationCache = await readData('geocode-cache.json').catch(error => {
+        if (error.code !== 'ENOENT') throw error;
+        return {};
+      });
       let pages;
       if (collectGasBuddy) {
         try {
           const sample = await collectGasBuddy(counties);
           if (sample.errors?.length) log('GasBuddy county page issues: ' + sample.errors.length + '. ' + sample.errors[0]);
-          const locationCache = await readData('geocode-cache.json');
           pages = parsePageSample(sample,geo,{locationCache,fallback:direct.stations});
         } catch (error) {
           log('GasBuddy county pages unavailable. ' + error.message);
@@ -174,7 +177,8 @@ export async function refresh({data=DATA,fetchResource=fetch,collectGasBuddy=nul
       }
       const eligiblePages = (pages?.stations || []).filter(row => fresh(row,Date.now()));
       if (!eligiblePages.length && !dane.rows.length) throw Error('No valid GasBuddy station reports were available.');
-      const {rows, updated} = mergeQuotes(gas.stations,[...eligiblePages,...dane.rows]);
+      const daneRows = dane.rows.map(row => ({...row, ...cachedStationLocation(row, locationCache, counties)}));
+      const {rows, updated} = mergeQuotes(gas.stations,[...eligiblePages,...daneRows]);
       if (!updated) return 'No newer station reports. Saved reports keep their original timestamps.';
       const metadata = new Map((gas.pages || []).map(page => [page.county,page]));
       for (const page of pages?.pages || []) metadata.set(page.county,page);

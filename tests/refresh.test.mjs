@@ -38,6 +38,7 @@ test('round-trip refresh preserves failed sources and old stations while recordi
     seed('terminals.json',{retrievedAt:date,reports:parseTerminals(fixtureTerminals)}),
     seed('fallback.json',{stations:[first,second]}),
     seed('gasbuddy-current.json',{stations:[gasReport],retrievedAt:date,latestDaneFuelAt:date}),
+    seed('geocode-cache.json',{'321 STATE ST, MADISON, WI':{countyFips:'55025',coordinates:{x:-89.39,y:43.07}}}),
     seed('published-prices.json',{stations:[],publishedAt:date}),
   ]);
   const correctedTerminals = fixtureTerminals.replaceAll('11/17/2026','11/20/2026');
@@ -63,6 +64,7 @@ test('round-trip refresh preserves failed sources and old stations while recordi
   assert.equal((await read('fallback.json')).stations[0].price,3.459);
   assert.deepEqual((await read('fallback.json')).stations[1],second);
   assert.equal((await read('gasbuddy-current.json')).stations[0].reportedAt,newerDane.reportedAt);
+  assert.equal((await read('gasbuddy-current.json')).stations[0].lat,43.07);
   assert.equal((await read('published-prices.json')).stations.length,2);
   assert.equal((await read('published-prices.json')).stations[0].observedAt,'2026-11-22T13:21:00.000Z');
 

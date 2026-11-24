@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {eligible,costFloor,countyModels,floorFor,parseTerminals,fresh,sourceTime,inside} from '../site/model.js';
+import {createLocationLookup, hasLocation, unpricedLocations} from '../site/locations.js';
 const root=new URL('../',import.meta.url);
 const read=name=>fs.readFile(new URL(name,root),'utf8');
 const data=async name=>JSON.parse(await read('site/data/'+name));
@@ -32,6 +33,7 @@ assert.equal(eligible(published.stations,{now:publishedTime+24*3600000+1}).lengt
 const embedded=JSON.parse(scripts[1][1].match(/^const embeddedData=(.*);$/m)[1]);
 assert.deepEqual(embedded['data/published-prices.json'],published);
 assert.deepEqual(embedded['data/history.json'],await data('history.json'));
+assert.deepEqual(embedded['data/station-locations.json'],await data('station-locations.json'));
 assert.ok(!bundle.includes('basemaps.cartocdn.com'));
 const app=await read('site/app.js');
 const station={...rows[0],id:'fixture',name:'Test "One", Inc.',address:'123 Main St',city:'Madison',county:'Dane',countyFips:'55025',price:3.499,observedAt:new Date().toISOString(),reportedAt:null,timeBasis:'retrieved',source:'Kwik Trip'};
@@ -60,7 +62,7 @@ field.oninput({target:{value:'2.5'}});assert.equal(costFloor(2.278,deliveryState
 const fields = new Map();
 let currentQuote = {...station, observedAt:'2026-11-23T15:00:00Z'};
 const priceContext = vm.createContext({
-  eligible, floorFor, fresh, sourceTime, inside, AbortSignal, Intl, countiesFixture:counties,
+  eligible, floorFor, fresh, sourceTime, inside, createLocationLookup, hasLocation, unpricedLocations, AbortSignal, Intl, countiesFixture:counties,
   Date:class extends Date { static now() { return Date.parse('2026-11-23T17:00:00Z'); } },
   document:{hidden:false,getElementById(id) {
     if (!fields.has(id)) fields.set(id, {});

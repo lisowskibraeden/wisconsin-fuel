@@ -501,12 +501,14 @@
       "url": "https://www.gasbuddy.com/station/104584",
       "source": "GasBuddy",
       "postalCode": "53562",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:28.907Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.101588343756,
+      "lng": -89.518363565794
     },
     {
       "id": "104967",
@@ -702,12 +704,14 @@
       "url": "https://www.gasbuddy.com/station/107445",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:28.893Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.184806635261,
+      "lng": -89.264485880211
     },
     {
       "id": "107894",
@@ -1747,12 +1751,14 @@
       "url": "https://www.gasbuddy.com/station/116743",
       "source": "GasBuddy",
       "postalCode": "53521",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:28.908Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.85838368251,
+      "lng": -89.369158651994
     },
     {
       "id": "116959",
@@ -1792,12 +1798,14 @@
       "url": "https://www.gasbuddy.com/station/11731",
       "source": "GasBuddy",
       "postalCode": "53705",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:37.195Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.081099264872,
+      "lng": -89.473906236934
     },
     {
       "id": "11734",
@@ -1815,12 +1823,14 @@
       "url": "https://www.gasbuddy.com/station/11734",
       "source": "GasBuddy",
       "postalCode": "53597",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:29.421Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.191960329843,
+      "lng": -89.460409169624
     },
     {
       "id": "11735",
@@ -1837,12 +1847,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/11735",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:37.192Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.074131722,
+      "lng": -89.436306178857
     },
     {
       "id": "11736",
@@ -1860,12 +1872,14 @@
       "url": "https://www.gasbuddy.com/station/11736",
       "source": "GasBuddy",
       "postalCode": "53593",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:29.930Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.991781519523,
+      "lng": -89.529833859483
     },
     {
       "id": "11739",
@@ -1883,12 +1897,14 @@
       "url": "https://www.gasbuddy.com/station/11739",
       "source": "GasBuddy",
       "postalCode": "53597",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:29.930Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.191847403924,
+      "lng": -89.453108759771
     },
     {
       "id": "11740",
@@ -1906,12 +1922,14 @@
       "url": "https://www.gasbuddy.com/station/11740",
       "source": "GasBuddy",
       "postalCode": "53726",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T04:59:52.344Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.072490122259,
+      "lng": -89.424009441084
     },
     {
       "id": "11742",
@@ -1928,12 +1946,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/11742",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T02:32:22.799Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.073305527158,
+      "lng": -89.308561102615
     },
     {
       "id": "11747",
@@ -1950,12 +1970,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/11747",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:37.934Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.134310644894,
+      "lng": -89.372274007823
     },
     {
       "id": "11769",
@@ -1972,12 +1994,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/11769",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:37.904Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.075220462529,
+      "lng": -89.445263766134
     },
     {
       "id": "11770",
@@ -1994,12 +2018,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/11770",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:30.464Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.048072541385,
+      "lng": -89.313095656719
     },
     {
       "id": "11771",
@@ -2061,12 +2087,14 @@
       "url": "https://www.gasbuddy.com/station/118137",
       "source": "GasBuddy",
       "postalCode": "53704",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:38.098Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.102112735238,
+      "lng": -89.347296925817
     },
     {
       "id": "118747",
@@ -2370,12 +2398,14 @@
       "url": "https://www.gasbuddy.com/station/121171",
       "source": "GasBuddy",
       "postalCode": "53715",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:38.664Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.047530157942,
+      "lng": -89.304863903343
     },
     {
       "id": "121589",
@@ -2815,12 +2845,14 @@
       "url": "https://www.gasbuddy.com/station/124293",
       "source": "GasBuddy",
       "postalCode": "53523",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:31.559Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.007742636672,
+      "lng": -89.022511869133
     },
     {
       "id": "124600",
@@ -3080,12 +3112,14 @@
       "url": "https://www.gasbuddy.com/station/127305",
       "source": "GasBuddy",
       "postalCode": "53527",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:31.524Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.086698835872,
+      "lng": -89.208800327144
     },
     {
       "id": "127325",
@@ -3305,12 +3339,14 @@
       "url": "https://www.gasbuddy.com/station/12951",
       "source": "GasBuddy",
       "postalCode": "53713",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:32.079Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.043352479886,
+      "lng": -89.404044084032
     },
     {
       "id": "12952",
@@ -3328,12 +3364,14 @@
       "url": "https://www.gasbuddy.com/station/12952",
       "source": "GasBuddy",
       "postalCode": "53558",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:32.078Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.012098812051,
+      "lng": -89.303295942992
     },
     {
       "id": "12953",
@@ -3351,12 +3389,14 @@
       "url": "https://www.gasbuddy.com/station/12953",
       "source": "GasBuddy",
       "postalCode": "53593",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:32.088Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.003952014205,
+      "lng": -89.532368663032
     },
     {
       "id": "12954",
@@ -3374,12 +3414,14 @@
       "url": "https://www.gasbuddy.com/station/12954",
       "source": "GasBuddy",
       "postalCode": "53572",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:32.612Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.00926348757,
+      "lng": -89.732420438755
     },
     {
       "id": "12956",
@@ -3397,12 +3439,14 @@
       "url": "https://www.gasbuddy.com/station/12956",
       "source": "GasBuddy",
       "postalCode": "53718",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:38.678Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.206835854749,
+      "lng": -89.281065521105
     },
     {
       "id": "12957",
@@ -3440,12 +3484,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/12959",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:33.138Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.990464710508,
+      "lng": -89.53338417732
     },
     {
       "id": "12960",
@@ -3463,12 +3509,14 @@
       "url": "https://www.gasbuddy.com/station/12960",
       "source": "GasBuddy",
       "postalCode": "53562",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:33.115Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.104079764895,
+      "lng": -89.49170351005
     },
     {
       "id": "12961",
@@ -3485,12 +3533,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/12961",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:33.148Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.112953179893,
+      "lng": -89.47168713636
     },
     {
       "id": "12962",
@@ -3507,12 +3557,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/12962",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:33.671Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.111663059361,
+      "lng": -89.510090995521
     },
     {
       "id": "129680",
@@ -4311,12 +4363,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13443",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:39.248Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.042175024896,
+      "lng": -89.393951955228
     },
     {
       "id": "13450",
@@ -4333,12 +4387,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13450",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:39.516Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.098239165146,
+      "lng": -89.319087509424
     },
     {
       "id": "13458",
@@ -4378,12 +4434,14 @@
       "url": "https://www.gasbuddy.com/station/13471",
       "source": "GasBuddy",
       "postalCode": "53532",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:34.190Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.18355178679,
+      "lng": -89.323898479458
     },
     {
       "id": "134977",
@@ -4422,12 +4480,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13503",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:34.228Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.04826616458,
+      "lng": -89.315391624556
     },
     {
       "id": "135078",
@@ -4487,12 +4547,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13550",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:35.047Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.238841904031,
+      "lng": -89.343602872611
     },
     {
       "id": "13552",
@@ -4535,12 +4597,14 @@
       "url": "https://www.gasbuddy.com/station/13554",
       "source": "GasBuddy",
       "postalCode": "53717",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:40.104Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.060628331073,
+      "lng": -89.512762013619
     },
     {
       "id": "13555",
@@ -4557,12 +4621,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13555",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:35.558Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.04778985509,
+      "lng": -89.324586045133
     },
     {
       "id": "13556",
@@ -4600,12 +4666,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13559",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:40.093Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.047141407899,
+      "lng": -89.351419541121
     },
     {
       "id": "13561",
@@ -4623,12 +4691,14 @@
       "url": "https://www.gasbuddy.com/station/13561",
       "source": "GasBuddy",
       "postalCode": "53713",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:35.562Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.037787494554,
+      "lng": -89.404533008779
     },
     {
       "id": "135994",
@@ -4668,12 +4738,14 @@
       "url": "https://www.gasbuddy.com/station/13601",
       "source": "GasBuddy",
       "postalCode": "53703",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T16:59:56.985Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.082449158553,
+      "lng": -89.365587674283
     },
     {
       "id": "13615",
@@ -4691,12 +4763,14 @@
       "url": "https://www.gasbuddy.com/station/13615",
       "source": "GasBuddy",
       "postalCode": "53704",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:40.781Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.111515783178,
+      "lng": -89.349568004719
     },
     {
       "id": "13616",
@@ -4713,12 +4787,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13616",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:40.791Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.060809883739,
+      "lng": -89.497210455976
     },
     {
       "id": "13617",
@@ -4736,12 +4812,14 @@
       "url": "https://www.gasbuddy.com/station/13617",
       "source": "GasBuddy",
       "postalCode": "53713",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:36.084Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.037218864219,
+      "lng": -89.40477592959
     },
     {
       "id": "13618",
@@ -4758,12 +4836,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13618",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:36.587Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.105151826558,
+      "lng": -89.197086754437
     },
     {
       "id": "137141",
@@ -4918,12 +4998,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13721",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:41.458Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.031859211041,
+      "lng": -89.497096334436
     },
     {
       "id": "137216",
@@ -4985,12 +5067,14 @@
       "url": "https://www.gasbuddy.com/station/13722",
       "source": "GasBuddy",
       "postalCode": "53716",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:41.458Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.083766082368,
+      "lng": -89.322549585832
     },
     {
       "id": "137221",
@@ -5072,12 +5156,14 @@
       "url": "https://www.gasbuddy.com/station/13731",
       "source": "GasBuddy",
       "postalCode": "53717",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:41.725Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.060495400591,
+      "lng": -89.516007794604
     },
     {
       "id": "137318",
@@ -5161,12 +5247,14 @@
       "url": "https://www.gasbuddy.com/station/13742",
       "source": "GasBuddy",
       "postalCode": "53711",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:42.292Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.038085650741,
+      "lng": -89.450422886941
     },
     {
       "id": "13743",
@@ -5183,12 +5271,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13743",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:42.310Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.103696721569,
+      "lng": -89.342873911128
     },
     {
       "id": "13744",
@@ -5206,12 +5296,14 @@
       "url": "https://www.gasbuddy.com/station/13744",
       "source": "GasBuddy",
       "postalCode": "53719",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:42.293Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.050204972037,
+      "lng": -89.503064809715
     },
     {
       "id": "137449",
@@ -5294,12 +5386,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/13767",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:37.113Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.030497167242,
+      "lng": -89.461133142823
     },
     {
       "id": "13768",
@@ -5317,12 +5411,14 @@
       "url": "https://www.gasbuddy.com/station/13768",
       "source": "GasBuddy",
       "postalCode": "53704",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:42.861Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.131895070608,
+      "lng": -89.302742638348
     },
     {
       "id": "138473",
@@ -5719,12 +5815,14 @@
       "url": "https://www.gasbuddy.com/station/13976",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:37.655Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.112844101608,
+      "lng": -89.199355642674
     },
     {
       "id": "141215",
@@ -5940,12 +6038,14 @@
       "url": "https://www.gasbuddy.com/station/14507",
       "source": "GasBuddy",
       "postalCode": "53575",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:37.644Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.917930118716,
+      "lng": -89.373288255196
     },
     {
       "id": "14508",
@@ -5963,12 +6063,14 @@
       "url": "https://www.gasbuddy.com/station/14508",
       "source": "GasBuddy",
       "postalCode": "53562",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:38.470Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.110267751762,
+      "lng": -89.509656338958
     },
     {
       "id": "145175",
@@ -6094,12 +6196,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/14589",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:38.290Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.938900319527,
+      "lng": -89.38329141384
     },
     {
       "id": "146182",
@@ -6230,12 +6334,14 @@
       "url": "https://www.gasbuddy.com/station/14708",
       "source": "GasBuddy",
       "postalCode": "53532",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:38.287Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.171892140751,
+      "lng": -89.324631785296
     },
     {
       "id": "147107",
@@ -6296,12 +6402,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/14843",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:39.052Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.039849338321,
+      "lng": -89.302580120424
     },
     {
       "id": "14844",
@@ -6829,12 +6937,14 @@
       "url": "https://www.gasbuddy.com/station/155243",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:39.595Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.162698172648,
+      "lng": -89.267730246321
     },
     {
       "id": "155419",
@@ -6874,12 +6984,14 @@
       "url": "https://www.gasbuddy.com/station/155425",
       "source": "GasBuddy",
       "postalCode": "53714",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:42.872Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.108319239153,
+      "lng": -89.314649198383
     },
     {
       "id": "155847",
@@ -6963,12 +7075,14 @@
       "url": "https://www.gasbuddy.com/station/156315",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:39.583Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.167863956054,
+      "lng": -89.271581723506
     },
     {
       "id": "156344",
@@ -7451,12 +7565,14 @@
       "url": "https://www.gasbuddy.com/station/17349",
       "source": "GasBuddy",
       "postalCode": "53716",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:42.872Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.06978904882,
+      "lng": -89.326009680429
     },
     {
       "id": "17350",
@@ -7473,12 +7589,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/17350",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:40.702Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.08415142632,
+      "lng": -89.302980917435
     },
     {
       "id": "17353",
@@ -7496,12 +7614,14 @@
       "url": "https://www.gasbuddy.com/station/17353",
       "source": "GasBuddy",
       "postalCode": "53714",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:43.426Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.084833704089,
+      "lng": -89.307072027757
     },
     {
       "id": "17354",
@@ -7518,12 +7638,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/17354",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:43.435Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.106776255034,
+      "lng": -89.354655174924
     },
     {
       "id": "173540",
@@ -7564,12 +7686,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/17356",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:43.463Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.119572516298,
+      "lng": -89.324673272892
     },
     {
       "id": "17357",
@@ -7587,12 +7711,14 @@
       "url": "https://www.gasbuddy.com/station/17357",
       "source": "GasBuddy",
       "postalCode": "53704",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:44.021Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.132023878404,
+      "lng": -89.355412111002
     },
     {
       "id": "17358",
@@ -7630,12 +7756,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/17361",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:44.057Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.134587309691,
+      "lng": -89.372177041496
     },
     {
       "id": "17364",
@@ -7652,12 +7780,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/17364",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:41.237Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.013337968125,
+      "lng": -89.302684651944
     },
     {
       "id": "17366",
@@ -7674,12 +7804,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/17366",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:41.212Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.926835423775,
+      "lng": -89.384262808602
     },
     {
       "id": "17367",
@@ -7697,12 +7829,14 @@
       "url": "https://www.gasbuddy.com/station/17367",
       "source": "GasBuddy",
       "postalCode": "53589",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:41.220Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.916968460065,
+      "lng": -89.232843900878
     },
     {
       "id": "17368",
@@ -7722,12 +7856,14 @@
       },
       "url": "https://www.gasbuddy.com/station/17368",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:41.744Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.188736800851,
+      "lng": -89.461683136009
     },
     {
       "id": "17369",
@@ -7745,12 +7881,14 @@
       "url": "https://www.gasbuddy.com/station/17369",
       "source": "GasBuddy",
       "postalCode": "53597",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:41.757Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.150723016061,
+      "lng": -89.41412551173
     },
     {
       "id": "177845",
@@ -8036,12 +8174,14 @@
       "url": "https://www.gasbuddy.com/station/187215",
       "source": "GasBuddy",
       "postalCode": "53718",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:44.030Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.149754712778,
+      "lng": -89.28989590919
     },
     {
       "id": "187617",
@@ -8103,12 +8243,14 @@
       "url": "https://www.gasbuddy.com/station/18956",
       "source": "GasBuddy",
       "postalCode": "53532",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:42.284Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.250230566878,
+      "lng": -89.373532128876
     },
     {
       "id": "18958",
@@ -8126,12 +8268,14 @@
       "url": "https://www.gasbuddy.com/station/18958",
       "source": "GasBuddy",
       "postalCode": "53715",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:44.626Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.063654292141,
+      "lng": -89.400830241844
     },
     {
       "id": "192379",
@@ -8241,12 +8385,14 @@
       "url": "https://www.gasbuddy.com/station/193273",
       "source": "GasBuddy",
       "postalCode": "53508",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:42.279Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.867501096374,
+      "lng": -89.533029306497
     },
     {
       "id": "193328",
@@ -8264,12 +8410,14 @@
       "url": "https://www.gasbuddy.com/station/193328",
       "source": "GasBuddy",
       "postalCode": "53704",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:44.622Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.115121309367,
+      "lng": -89.327469887801
     },
     {
       "id": "193424",
@@ -8425,12 +8573,14 @@
       "url": "https://www.gasbuddy.com/station/195647",
       "source": "GasBuddy",
       "postalCode": "53532",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:42.863Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.248710651914,
+      "lng": -89.323950393183
     },
     {
       "id": "19566",
@@ -8490,12 +8640,14 @@
       "url": "https://www.gasbuddy.com/station/195764",
       "source": "GasBuddy",
       "postalCode": "53532",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:43.453Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.250678037199,
+      "lng": -89.36791058055
     },
     {
       "id": "196171",
@@ -8583,12 +8735,14 @@
       "url": "https://www.gasbuddy.com/station/196825",
       "source": "GasBuddy",
       "postalCode": "53589",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:43.382Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.942029904144,
+      "lng": -89.253632072237
     },
     {
       "id": "196978",
@@ -8606,12 +8760,14 @@
       "url": "https://www.gasbuddy.com/station/196978",
       "source": "GasBuddy",
       "postalCode": "53515",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:43.965Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.141906662474,
+      "lng": -89.743678619972
     },
     {
       "id": "197560",
@@ -8676,12 +8832,14 @@
       "url": "https://www.gasbuddy.com/station/198034",
       "source": "GasBuddy",
       "postalCode": "53598",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:43.958Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.216348690378,
+      "lng": -89.329454011294
     },
     {
       "id": "198165",
@@ -8769,12 +8927,14 @@
       "url": "https://www.gasbuddy.com/station/199404",
       "source": "GasBuddy",
       "postalCode": "53718",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:44.627Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.142288967173,
+      "lng": -89.283393350348
     },
     {
       "id": "199408",
@@ -8792,12 +8952,14 @@
       "url": "https://www.gasbuddy.com/station/199408",
       "source": "GasBuddy",
       "postalCode": "53517",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:44.476Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.012834972492,
+      "lng": -89.822271813201
     },
     {
       "id": "199822",
@@ -8906,12 +9068,14 @@
       "url": "https://www.gasbuddy.com/station/202663",
       "source": "GasBuddy",
       "postalCode": "53597",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:44.489Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.168654452626,
+      "lng": -89.459997169282
     },
     {
       "id": "202885",
@@ -9129,12 +9293,14 @@
       "url": "https://www.gasbuddy.com/station/205154",
       "source": "GasBuddy",
       "postalCode": "53508",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:45.428Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.861527894383,
+      "lng": -89.558317221578
     },
     {
       "id": "205234",
@@ -9218,12 +9384,14 @@
       "url": "https://www.gasbuddy.com/station/205678",
       "source": "GasBuddy",
       "postalCode": "53572",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:45.469Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.879296373415,
+      "lng": -89.696627882472
     },
     {
       "id": "205696",
@@ -9395,12 +9563,14 @@
       "url": "https://www.gasbuddy.com/station/206844",
       "source": "GasBuddy",
       "postalCode": "53589",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:45.422Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.920813736933,
+      "lng": -89.250753834117
     },
     {
       "id": "207418",
@@ -9441,12 +9611,14 @@
       "url": "https://www.gasbuddy.com/station/207725",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:45.994Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.187490868238,
+      "lng": -89.241732951447
     },
     {
       "id": "207763",
@@ -9464,12 +9636,14 @@
       "url": "https://www.gasbuddy.com/station/207763",
       "source": "GasBuddy",
       "postalCode": "53711",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:45.993Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.006816442293,
+      "lng": -89.396169663381
     },
     {
       "id": "207880",
@@ -9777,12 +9951,14 @@
       "url": "https://www.gasbuddy.com/station/213500",
       "source": "GasBuddy",
       "postalCode": "53558",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:46.514Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.039996559283,
+      "lng": -89.302188973756
     },
     {
       "id": "214469",
@@ -9953,12 +10129,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/23574",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:45.482Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.054531457451,
+      "lng": -89.396793699523
     },
     {
       "id": "26111",
@@ -9975,12 +10153,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/26111",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:46.514Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.015404676642,
+      "lng": -89.469221981945
     },
     {
       "id": "26191",
@@ -10109,12 +10289,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/29601",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:45.209Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.060156787547,
+      "lng": -89.579229327561
     },
     {
       "id": "30500",
@@ -10200,12 +10382,14 @@
       "url": "https://www.gasbuddy.com/station/31098",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:47.036Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.200675006232,
+      "lng": -89.225797444928
     },
     {
       "id": "31197",
@@ -10223,12 +10407,14 @@
       "url": "https://www.gasbuddy.com/station/31197",
       "source": "GasBuddy",
       "postalCode": "53711",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:46.049Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.030497167242,
+      "lng": -89.461133142823
     },
     {
       "id": "31198",
@@ -10245,12 +10431,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/31198",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:47.561Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.015783152791,
+      "lng": -89.487719818435
     },
     {
       "id": "3229",
@@ -10268,12 +10456,14 @@
       "url": "https://www.gasbuddy.com/station/3229",
       "source": "GasBuddy",
       "postalCode": "53711",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:46.051Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.046372906888,
+      "lng": -89.486722017033
     },
     {
       "id": "3230",
@@ -10291,12 +10481,14 @@
       "url": "https://www.gasbuddy.com/station/3230",
       "source": "GasBuddy",
       "postalCode": "53713",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:47.570Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.027277869055,
+      "lng": -89.412163666841
     },
     {
       "id": "32740",
@@ -10313,12 +10505,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/32740",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:48.086Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.111258245763,
+      "lng": -89.644897124768
     },
     {
       "id": "33310",
@@ -10335,12 +10529,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/33310",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:48.111Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.171885595678,
+      "lng": -89.79509037131
     },
     {
       "id": "35989",
@@ -10446,12 +10642,14 @@
       "url": "https://www.gasbuddy.com/station/38308",
       "source": "GasBuddy",
       "postalCode": "53719",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:46.051Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.04615381624,
+      "lng": -89.503153233728
     },
     {
       "id": "38622",
@@ -10468,12 +10666,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/38622",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:46.629Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.016337289584,
+      "lng": -89.498779577005
     },
     {
       "id": "38816",
@@ -10490,12 +10690,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/38816",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:48.631Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.017170485114,
+      "lng": -89.30080375581
     },
     {
       "id": "4427",
@@ -10513,12 +10715,14 @@
       "url": "https://www.gasbuddy.com/station/4427",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:48.629Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.198675628502,
+      "lng": -89.211259340111
     },
     {
       "id": "4428",
@@ -10536,12 +10740,14 @@
       "url": "https://www.gasbuddy.com/station/4428",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:49.145Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.17769085997,
+      "lng": -89.241781692529
     },
     {
       "id": "4429",
@@ -10559,12 +10765,14 @@
       "url": "https://www.gasbuddy.com/station/4429",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:49.143Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.179873006749,
+      "lng": -89.233906762035
     },
     {
       "id": "4430",
@@ -10582,12 +10790,14 @@
       "url": "https://www.gasbuddy.com/station/4430",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-04T17:04:07.466Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.187403234074,
+      "lng": -89.229608581098
     },
     {
       "id": "4431",
@@ -10605,12 +10815,14 @@
       "url": "https://www.gasbuddy.com/station/4431",
       "source": "GasBuddy",
       "postalCode": "53590",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:49.146Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.180773650667,
+      "lng": -89.206135344084
     },
     {
       "id": "4775",
@@ -10628,12 +10840,14 @@
       "url": "https://www.gasbuddy.com/station/4775",
       "source": "GasBuddy",
       "postalCode": "53598",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:49.658Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.193699462231,
+      "lng": -89.336415739142
     },
     {
       "id": "4776",
@@ -10651,12 +10865,14 @@
       "url": "https://www.gasbuddy.com/station/4776",
       "source": "GasBuddy",
       "postalCode": "53598",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:49.679Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.195788800303,
+      "lng": -89.343045653039
     },
     {
       "id": "4777",
@@ -10673,12 +10889,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/4777",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:49.683Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.19579058998,
+      "lng": -89.343202817346
     },
     {
       "id": "5013",
@@ -10696,12 +10914,14 @@
       "url": "https://www.gasbuddy.com/station/5013",
       "source": "GasBuddy",
       "postalCode": "53711",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:50.217Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.005604760624,
+      "lng": -89.396222699755
     },
     {
       "id": "50923",
@@ -10719,12 +10939,14 @@
       "url": "https://www.gasbuddy.com/station/50923",
       "source": "GasBuddy",
       "postalCode": "53515",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:50.234Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.142895663478,
+      "lng": -89.747894846204
     },
     {
       "id": "50924",
@@ -10825,12 +11047,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/50929",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:51.369Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.050506861233,
+      "lng": -89.076216662809
     },
     {
       "id": "50930",
@@ -10847,12 +11071,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/50930",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:51.359Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.964699915076,
+      "lng": -89.372329619023
     },
     {
       "id": "50931",
@@ -10869,12 +11095,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/50931",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:46.648Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.097391271291,
+      "lng": -89.359347094563
     },
     {
       "id": "50932",
@@ -10891,12 +11119,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/50932",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:46.627Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.129794961957,
+      "lng": -89.363426902503
     },
     {
       "id": "50933",
@@ -10913,12 +11143,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/50933",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:51.880Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.171877610297,
+      "lng": -89.797454898461
     },
     {
       "id": "50934",
@@ -10935,12 +11167,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/50934",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T16:59:58.666Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.096799852818,
+      "lng": -89.51176664859
     },
     {
       "id": "50935",
@@ -10958,12 +11192,14 @@
       "url": "https://www.gasbuddy.com/station/50935",
       "source": "GasBuddy",
       "postalCode": "53562",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:51.890Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.097375695044,
+      "lng": -89.534996069931
     },
     {
       "id": "50936",
@@ -11001,12 +11237,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/50941",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:52.495Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.918487346249,
+      "lng": -89.206408061034
     },
     {
       "id": "50942",
@@ -11023,12 +11261,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/50942",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:52.436Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.916761953851,
+      "lng": -89.22623575419
     },
     {
       "id": "50943",
@@ -11045,12 +11285,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/50943",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:52.986Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.949487866102,
+      "lng": -89.269428129705
     },
     {
       "id": "50945",
@@ -11067,12 +11309,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/50945",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:53.010Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.174630810029,
+      "lng": -89.218377075249
     },
     {
       "id": "50946",
@@ -11090,12 +11334,14 @@
       "url": "https://www.gasbuddy.com/station/50946",
       "source": "GasBuddy",
       "postalCode": "53597",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-04T17:04:08.040Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.189731516056,
+      "lng": -89.446885854817
     },
     {
       "id": "53220",
@@ -11221,12 +11467,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/5937",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:47.254Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.057628626003,
+      "lng": -89.399504855034
     },
     {
       "id": "66647",
@@ -11494,12 +11742,14 @@
       "url": "https://www.gasbuddy.com/station/66702",
       "source": "GasBuddy",
       "postalCode": "53523",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-06T23:22:02.699Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.004243742632,
+      "lng": -89.02039124828
     },
     {
       "id": "66713",
@@ -11561,12 +11811,14 @@
       "url": "https://www.gasbuddy.com/station/66721",
       "source": "GasBuddy",
       "postalCode": "53529",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T04:59:53.420Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.25037750545,
+      "lng": -89.501663390708
     },
     {
       "id": "6673",
@@ -11584,12 +11836,14 @@
       "url": "https://www.gasbuddy.com/station/6673",
       "source": "GasBuddy",
       "postalCode": "53562",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:53.849Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.089047274683,
+      "lng": -89.48480030171
     },
     {
       "id": "66737",
@@ -12247,12 +12501,14 @@
       "url": "https://www.gasbuddy.com/station/66911",
       "source": "GasBuddy",
       "postalCode": "53559",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:54.380Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.169944317042,
+      "lng": -89.069319707401
     },
     {
       "id": "66912",
@@ -13203,12 +13459,14 @@
       "url": "https://www.gasbuddy.com/station/68327",
       "source": "GasBuddy",
       "postalCode": "53593",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:54.356Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 42.970920465379,
+      "lng": -89.512436935133
     },
     {
       "id": "68399",
@@ -13601,12 +13859,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/7128",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:45:54.909Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.030806204682,
+      "lng": -89.409639196967
     },
     {
       "id": "73939",
@@ -14422,12 +14682,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/9075",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:47.824Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.04899433628,
+      "lng": -89.50308282053
     },
     {
       "id": "91302",
@@ -14510,12 +14772,14 @@
       "cashQuote": null,
       "url": "https://www.gasbuddy.com/station/92325",
       "source": "GasBuddy",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:48.101Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.034393679644,
+      "lng": -89.456133582962
     },
     {
       "id": "92632",
@@ -14621,12 +14885,14 @@
       "url": "https://www.gasbuddy.com/station/9804",
       "source": "GasBuddy",
       "postalCode": "53714",
-      "countyAuthority": "Dane Fuel verified county",
+      "countyAuthority": "US Census Geocoder",
       "countySource": null,
       "countyFips": "55025",
       "countyVerifiedAt": "2026-11-03T00:28:47.820Z",
       "county": "Dane",
-      "timeBasis": "reported"
+      "timeBasis": "reported",
+      "lat": 43.121259064456,
+      "lng": -89.29870100611
     },
     {
       "id": "98714",

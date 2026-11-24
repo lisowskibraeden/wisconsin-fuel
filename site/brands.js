@@ -25,6 +25,9 @@ const brandLogos = [
   [/^arco\b/i, 'arco.png'],
   [/^vp\s+racing\b/i, 'vp-racing.png'],
   [/^minit\s+mart\b/i, 'minit-mart.png'],
+  [/^speedway\b/i, 'speedway.svg'],
+  [/^love['’]?s\b/i, 'loves.svg'],
+  [/^pilot\b/i, 'pilot.svg'],
   [/(?:^|\s)iga$/i, 'iga.png'],
 ];
 

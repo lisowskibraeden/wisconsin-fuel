@@ -69,10 +69,18 @@ dialog p, dialog li, .formula, .delivery-setting { font-size: .9375rem; }
   .map-options { display: none; }
 }
 
-.station-pin { position: relative; display: flex; align-items: center; justify-content: center; gap: 5px; min-height: 32px; width: max-content; min-width: 62px; max-width: 92px; margin-inline: auto; padding: 2px 6px; }
-.station-pin::after { content: ''; position: absolute; left: calc(50% - 3px); bottom: -4px; width: 6px; height: 6px; border: solid #bfd3c6; border-width: 0 1px 1px 0; background: inherit; transform: rotate(45deg); }
-.station-pin .station-logo { display: block; width: 26px; height: 23px; padding: 1px; border: 0; border-radius: 3px; overflow: hidden; }
-.leaflet-marker-pane .station-pin .station-logo img { width: 100%; }
+.station-pin { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; height: 34px; padding: 3px 5px; background: white; border: 1px solid #78968b; border-radius: 7px; box-shadow: 0 2px 6px #17352e3d; }
+.station-pin.active { border-color: #206957; box-shadow: 0 0 0 1px #206957, 0 2px 6px #17352e3d; }
+.station-pin.unpriced { border-style: dashed; border-color: #75827d; }
+.station-pin .station-logo { display: flex; align-items: center; justify-content: center; width: 34px; height: 24px; padding: 0; border: 0; border-radius: 0; overflow: hidden; }
+.leaflet-marker-pane .station-pin .station-logo img { display: block; width: 100%; height: 100%; max-width: 100% !important; max-height: 100% !important; object-fit: contain; }
+.station-pin-price { font: 700 .875rem/1 system-ui, sans-serif; font-variant-numeric: tabular-nums; white-space: nowrap; color: #174535; }
+.station-dot { display: block; width: 100%; height: 100%; background: #fff; border: 2px solid #475a54; border-radius: 50%; box-shadow: 0 1px 4px #1b302d55; }
+.station-dot.priced { background: #23755c; border-color: #fff; }
+.station-dot.active { box-shadow: 0 0 0 1px #174535, 0 1px 4px #1b302d55; }
+.station-legend { display: grid; gap: 6px; font-size: .8125rem; }
+.station-legend span { display: flex; align-items: center; gap: 7px; }
+.station-legend .station-dot { width: 14px; height: 14px; flex: none; }
 .popup-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
 
 .history-panel { margin: 16px 0; padding: 14px 0 12px; border-block: 1px solid var(--line); }
