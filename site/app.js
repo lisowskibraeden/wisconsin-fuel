@@ -8,8 +8,9 @@ const reportDate=value=>new Intl.DateTimeFormat('en-US',{timeZone:'UTC',month:'s
 const age=value=>{const hours=(Date.now()-Date.parse(value))/3600000;return hours<1?Math.max(1,Math.floor(hours*60))+'m ago':hours<24?Math.floor(hours)+'h ago':Math.floor(hours/24)+'d ago';};
 let stored={};try{stored=JSON.parse(localStorage.getItem('wi-fuel-settings')||'{}');}catch{}
 const state={layer:'current',county:'55025',source:'available',members:stored.members??false,cash:stored.cash??false,delivery:stored.delivery??.025,gallons:stored.gallons??12};
-let map,geoLayer,counties=[],allStations=[],reports=[],stationLayer,labelLayer,selectedStation=null,gasSnapshot={},fallback={},searchChoices=[],streetLayer;
+let map,geoLayer,counties=[],allStations=[],reports=[],stationLayer,labelLayer,selectedStation=null,searchChoices=[],streetLayer;
 let countyHistoryData = {};
+let currentRows = [];
 const historyView = {window:30, date:null};
 const streetZoom = 10;
 const streetDetail = () => Boolean(map && map.getZoom() >= streetZoom && $('basemap').checked);
@@ -22,10 +23,16 @@ function stationLogo(name) {
 
 let countyRows=new Map(),countyFloors=new Map(),currentRange=[0,1],floorRange=[0,1];
 const save=()=>{try{localStorage.setItem('wi-fuel-settings',JSON.stringify({members:state.members,cash:state.cash,delivery:state.delivery,gallons:state.gallons}));}catch{}};
-async function load(url,defaultValue){const r=await fetch(url);if(!r.ok){if(defaultValue!==undefined)return defaultValue;throw Error(`${url}: HTTP ${r.status}`);}return r.json();}
+async function load(url, defaultValue) {
+  if (typeof embeddedData !== 'undefined' && Object.hasOwn(embeddedData, url)) return embeddedData[url];
+  const response = await fetch(url, {cache:'no-cache', signal:AbortSignal.timeout(15000)});
+  if (response.ok) return response.json();
+  if (defaultValue !== undefined) return defaultValue;
+  throw Error(`${url}: HTTP ${response.status}`);
+}
 const stationsFor=id=>countyRows.get(id)||[];
 const estimate=c=>countyFloors.get(c.id);
-function recompute(){countyRows=new Map(counties.map(c=>[c.id,[]]));for(const s of eligible(allStations,{source:state.source,members:state.members,cash:state.cash}))countyRows.get(s.countyFips)?.push(s);countyFloors=new Map(counties.map(c=>[c.id,floorFor(c,reports,{delivery:state.delivery})]));currentRange=extent([...countyRows.values()].map(r=>r[0]?.price).filter(Number.isFinite));floorRange=extent([...countyFloors.values()].filter(f=>f&&!f.stale).map(f=>f.price));}
+function recompute(){const now=Date.now();currentRows=eligible(allStations,{now,source:state.source,members:state.members,cash:state.cash});countyRows=new Map(counties.map(c=>[c.id,[]]));for(const s of currentRows)countyRows.get(s.countyFips)?.push(s);countyFloors=new Map(counties.map(c=>[c.id,floorFor(c,reports,{now,delivery:state.delivery})]));currentRange=extent([...countyRows.values()].map(r=>r[0]?.price).filter(Number.isFinite));floorRange=extent([...countyFloors.values()].filter(f=>f&&!f.stale).map(f=>f.price));}
 const palette=['#d5e6d6','#a6cfb4','#75b59b','#438b77','#205e54'];
 const floorsPalette=['#e2e9c5','#c6d7a7','#a4bf8a','#7fa46e','#56845b'];
 function extent(values){if(!values.length)return [0,1];return [Math.min(...values),Math.max(...values)];}
@@ -42,11 +49,11 @@ function layerStyle(feature){const c=counties.find(c=>c.id===feature.id),rows=st
     opacity: detail ? (selected ? .65 : .3) : 1,
   };}
 function countyTooltip(c){const rows=stationsFor(c.id),floor=estimate(c);return `<b>${esc(c.name)} County</b><br>Lowest available: ${money(rows[0]?.price)}<br>Estimated minimum: ${money(floor?.price)}${floor?.stale?' · stale':''}<br><span style="color:#78877d">${rows.length} fresh quotes · click to explore</span>`;}
-function renderSummary(){const rows=eligible(allStations,{source:state.source,members:state.members,cash:state.cash}),coverage=new Set(rows.map(s=>s.countyFips)).size;const middle=Math.floor(rows.length/2),median=rows.length?(rows.length%2?rows[middle].price:(rows[middle-1].price+rows[middle].price)/2):null;const prices=counties.map(c=>estimate(c)).filter(f=>f&&!f.stale).map(f=>f.price);$('summary-low').textContent=money(rows[0]?.price);$('summary-low-place').textContent=rows.length?`${rows[0].city} · ${rows[0].source}`:'No fresh quotes for selected sources';$('summary-median').textContent=money(median);$('summary-floor').textContent=prices.length?`$${Math.min(...prices).toFixed(2)}–${Math.max(...prices).toFixed(2)}`:'—';$('summary-coverage').innerHTML=`${coverage} <em>/ 72 counties</em>`;$('summary-stations').textContent=`${rows.length.toLocaleString()} fresh station quotes · regular 87`;const sources = [...new Set(rows.map(row => row.source === 'Kwik Trip' ? 'Kwik Trip direct' : row.source))];
+function renderSummary(){const rows=currentRows,coverage=new Set(rows.map(s=>s.countyFips)).size;const middle=Math.floor(rows.length/2),median=rows.length?(rows.length%2?rows[middle].price:(rows[middle-1].price+rows[middle].price)/2):null;const prices=counties.map(c=>estimate(c)).filter(f=>f&&!f.stale).map(f=>f.price);$('summary-low').textContent=money(rows[0]?.price);$('summary-low-place').textContent=rows.length?`${rows[0].city} · ${rows[0].source} · ${fmtDate(sourceTime(rows[0]))} CT`:'No fresh quotes for selected sources';$('summary-median').textContent=money(median);$('summary-floor').textContent=prices.length?`$${Math.min(...prices).toFixed(2)}–${Math.max(...prices).toFixed(2)}`:'—';$('summary-coverage').innerHTML=`${coverage} <em>/ 72 counties</em>`;$('summary-stations').textContent=`${rows.length.toLocaleString()} fresh station quotes · regular 87`;const sources = [...new Set(rows.map(row => row.source === 'Kwik Trip' ? 'Kwik Trip direct' : row.source))];
 $('source-message').textContent = rows.length
   ? `${sources.join(' + ')} · Regular prices in ${coverage} of 72 counties`
   : 'No recent station prices are available for the selected sources.';
-$('snapshot-label').textContent='Saved price snapshot';const latest=allStations.filter(s=>fresh(s)).map(s=>Date.parse(s.observedAt)).filter(Number.isFinite);$('snapshot-time').textContent=latest.length?'Latest source update '+fmtDate(Math.max(...latest))+' CT':'No fresh station quotes';$('map-footer').textContent=`${coverage} counties with fresh quotes · ${rows.length} quotes · Missing prices are not interpolated.`;}
+$('snapshot-label').textContent='Saved price snapshot';const latest=Math.max(...rows.map(s=>Date.parse(sourceTime(s))));$('snapshot-time').textContent=Number.isFinite(latest)?'Newest quote '+fmtDate(latest)+' CT':'No fresh station quotes';$('map-footer').textContent=`${coverage} counties with fresh quotes · ${rows.length} quotes`;}
 const timeLabel = station => ({retrieved:'retrieved', published:'snapshot published'})[station.timeBasis] || 'reported';
 function stationHTML(s){return `<a class="station-row" href="${esc(s.url)}" target="_blank" rel="noreferrer">${stationLogo(s.name)}<span class="station-info"><b>${esc(s.name)}</b><small>${esc(s.address)} · ${esc(s.city)}</small><small>${esc(s.source)}${s.membership?' · membership':''}${s.payment==='cash'?' · cash':''}</small></span><span class="station-price"><strong>${money(s.price)}</strong><small>${timeLabel(s)} ${age(sourceTime(s))}</small></span></a>`;}
 function renderCounty(){const c=counties.find(c=>c.id===state.county),rows=stationsFor(c.id),floor=estimate(c),signal=compare(rows,floor),sourceNames=[...new Set(rows.map(s=>s.source))];const cents=signal.gap===null?null:Math.max(0,signal.gap)*100;const scenario=signal.kind==='unknown'?'Fresh local quotes and a recent terminal report are needed before comparing.':signal.kind==='room'?'There’s a gap to the regional cost estimate. Watching prices may pay off; a drop in the next few days is not confirmed.':signal.kind==='near'?'The lowest collected quote is already close to or below the cost estimate. The model sees little room to fall.':'The gap is modest. Check nearby stations again before deciding to wait.';
@@ -63,7 +70,7 @@ function renderPins() {
   const zoom = map.getZoom();
   if (zoom >= streetZoom && state.layer === 'current') {
     if (!$('show-stations').checked) return;
-    const rows = eligible(allStations, {source:state.source, members:state.members, cash:state.cash});
+    const rows = currentRows;
     const bounds = map.getBounds().pad(.1);
     const occupied = [];
     for (const station of rows) {
@@ -105,12 +112,74 @@ function search(){const term=$('place-search').value.trim().toLowerCase();if(!te
 function chooseSearch(i){const r=searchChoices[i];if(!r)return;$('place-search').value=r.label;$('search-results').hidden=true;selectCounty(r.id,{zoom:true});if(r.station&&Number.isFinite(r.station.lat))map.setView([r.station.lat,r.station.lng],12);}
 function openInfo(){$('info-dialog').showModal();}
 function download(){const rows=eligible(allStations,{source:state.source,members:state.members,cash:state.cash}),head=['station','address','city','county','source','regular_price','reported_at','retrieved_at','time_basis','estimated_minimum','terminal_market','terminal_date','url','published_at'];const csv=[head,...rows.map(s=>{const c=counties.find(c=>c.id===s.countyFips),f=c?estimate(c):null;return [s.name,s.address,s.city,s.county,s.source,s.price,s.reportedAt||'',s.timeBasis==='published'?'':s.observedAt,s.timeBasis,f?.price??'',f?.market.name??'',f?.reportDate??'',s.url,s.timeBasis==='published'?s.observedAt:''];})].map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='wisconsin-fuel-'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-async function init(){try{
-  const [geo,terminalData,gas,fallbackData,archived,published,history]=await Promise.all([load('data/counties.geojson'),load('data/terminals.json'),load('data/gasbuddy-current.json',{}),load('data/fallback.json',{stations:[]}),load('data/gasbuddy-archive.json',{stations:[]}),load('data/published-prices.json',{stations:[]}),load('data/history.json',{})]);countyHistoryData=history.counties??{};reports=terminalData.reports;gasSnapshot=gas;fallback=fallbackData;counties=countyModels(geo);const gasRows=[...(archived.stations||[]),...(gas.stations||[])].filter(s=>s.source==='GasBuddy');const byID=new Map();for(const s of [...gasRows,...(fallback.stations||[]),...(published.stations||[])]){let county=counties.find(c=>c.id===s.countyFips);if(!county&&Number.isFinite(s.lat)&&Number.isFinite(s.lng))county=counties.find(c=>inside([s.lng,s.lat],c.feature.geometry));if(!county)continue;const row={...s,countyFips:county.id,county:county.name};const prev=byID.get(row.id);if(!prev||Date.parse(sourceTime(row))>Date.parse(sourceTime(prev)))byID.set(row.id,row);}allStations=[...byID.values()];
+const priceFiles = {
+  terminals: 'data/terminals.json',
+  gas: 'data/gasbuddy-current.json',
+  fallback: 'data/fallback.json',
+  published: 'data/published-prices.json',
+  history: 'data/history.json',
+};
+let snapshots;
+let archivedStations;
+
+async function readPriceSnapshots(previous) {
+  const entries = await Promise.all(Object.entries(priceFiles).map(async ([key, url]) => {
+    try {
+      return [key, await load(url)];
+    } catch (error) {
+      if (previous) return [key, previous[key]];
+      if (key === 'terminals') throw error;
+      return [key, {stations:[]}];
+    }
+  }));
+  return Object.fromEntries(entries);
+}
+
+function applyPriceSnapshots({terminals:terminalData, gas:gasSnapshot, fallback, published, history}) {
+  countyHistoryData = history.counties ?? {};
+  reports = terminalData.reports;
+  const gasRows = [...archivedStations, ...(gasSnapshot.stations ?? [])].filter(station => station.source === 'GasBuddy');
+  const byID = new Map();
+  for (const station of [...gasRows, ...(fallback.stations ?? []), ...(published.stations ?? [])]) {
+    let county = counties.find(candidate => candidate.id === station.countyFips);
+    if (!county && Number.isFinite(station.lat) && Number.isFinite(station.lng)) {
+      county = counties.find(candidate => inside([station.lng, station.lat], candidate.feature.geometry));
+    }
+    if (!county) continue;
+    const key = `${station.source}:${station.id}`;
+    const previous = byID.get(key);
+    const timestamp = Date.parse(sourceTime(station));
+    if (Number.isFinite(timestamp) && (!previous || timestamp >= Date.parse(sourceTime(previous)))) {
+      byID.set(key, {...station, countyFips:county.id, county:county.name});
+    }
+  }
+  allStations = [...byID.values()];
   // Use collected station locations as county label positions when available.
   for(const c of counties){const locations=allStations.filter(s=>s.countyFips===c.id&&fresh(s)&&Number.isFinite(s.lat)&&Number.isFinite(s.lng));c.labelCenter=locations.length?{lat:locations.reduce((n,s)=>n+s.lat,0)/locations.length,lng:locations.reduce((n,s)=>n+s.lng,0)/locations.length}:c.center;}
-  recompute();initializeMap(geo);render();
   $('source-details').innerHTML=`<div class="source-fact"><b>GasBuddy · ${allStations.filter(s=>s.source==='GasBuddy'&&fresh(s)).length} fresh reports</b><small>${gasSnapshot.latestDaneFuelAt?`Dane County refreshed ${fmtDate(gasSnapshot.latestDaneFuelAt)} CT from Dane Fuel. `:''}${gasSnapshot.pages?.length||0} county pages were read; only listings with a visible price and report age were imported. Up to ten listings per county are sampled, not every station. County assignments use the source county listing unless an exact public address match confirms it. Report times are approximated from the source’s relative age label. Prices are displayed at the precision supplied by the page.</small></div><div class="source-fact"><b>Kwik Trip direct · ${fallback.stations?.length||0} quotes in ${new Set((fallback.stations||[]).map(s=>s.countyFips)).size} counties</b><small>${fallback.retrievedAt?'Retrieved '+fmtDate(fallback.retrievedAt)+' CT. ':''}Regular-87 quotes from the public first-party store service. Price-change timestamps and explicit payment terms are not supplied. This is one brand, not a market-wide survey.</small></div><div class="source-fact"><b>FuelRadarDash · ${published.stations.length} published quotes</b><small>${published.publishedAt?fmtDate(published.publishedAt)+' CT. ':''}Regular prices matched to verified station addresses. The publisher provides a page update time. Individual price times are unavailable.</small></div><div class="source-fact"><b>AXXIS · ${reports.length} quoted terminal markets</b><small>${terminalData.retrievedAt?'Retrieved '+fmtDate(terminalData.retrievedAt)+' CT. ':''}Report dates are displayed per county; refreshing the page does not make the source data newer.</small></div>`;
+}
+
+async function refreshDisplayedPrices() {
+  if (document.hidden) return;
+  snapshots = await readPriceSnapshots(snapshots);
+  applyPriceSnapshots(snapshots);
+  render();
+}
+
+async function init(){try{
+  const [geo, archived, initial] = await Promise.all([
+    load('data/counties.geojson'),
+    load('data/gasbuddy-archive.json', {stations:[]}),
+    readPriceSnapshots(),
+  ]);
+  counties = countyModels(geo);
+  archivedStations = archived.stations ?? [];
+  snapshots = initial;
+  applyPriceSnapshots(snapshots);
+  recompute();
+  initializeMap(geo);
+  render();
   document.querySelectorAll('[data-layer]').forEach(b=>b.onclick=()=>{state.layer=b.dataset.layer;document.querySelectorAll('[data-layer]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});renderMap();});$('source-filter').onchange=e=>{state.source=e.target.value;render();};$('place-search').oninput=search;$('place-search').onkeydown=e=>{if(e.key==='Escape')$('search-results').hidden=true;if(e.key==='Enter'){e.preventDefault();chooseSearch(0);}};document.addEventListener('click',e=>{if(!e.target.closest('.search-area'))$('search-results').hidden=true;});document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('info-dialog').open){e.preventDefault();$('place-search').focus();}});$('method-button').onclick=openInfo;$('sources-button').onclick=openInfo;$('close-dialog').onclick=()=>$('info-dialog').close();$('info-dialog').onclick=e=>{if(e.target===$('info-dialog')){const b=$('info-dialog').getBoundingClientRect();if(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom)$('info-dialog').close();}};$('delivery-input').value=state.delivery*100;$('delivery-input').oninput=e=>{const n=Number(e.target.value);if(Number.isFinite(n)&&n>=0&&n<=100){state.delivery=n/100;save();render();}};$('export-button').onclick=download;setInterval(render,60000);
+  if (typeof embeddedData === 'undefined') setInterval(refreshDisplayedPrices, 5 * 60000);
 }catch(e){$('app-error').hidden=false;$('app-error').textContent='The map could not load: '+e.message+'. Start this preview with npm start and check its saved data files.';console.error(e);}}
 init();

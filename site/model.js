@@ -8,7 +8,6 @@ export const MARKETS = [
   ['969','Milwaukee, WI',43.0389,-87.9065],['971','Superior, WI',46.7208,-92.1041],
   ['973','Waupun, WI',43.6333,-88.7296]
 ].map(([id,name,lat,lng])=>({id,name,lat,lng}));
-const sourcePriority = {'GasBuddy': 2, 'Kwik Trip': 1};
 export const sourceTime = s => s.timeBasis === 'retrieved' || s.timeBasis === 'published' ? s.observedAt : s.reportedAt;
 export function fresh(s,now=Date.now(),maxAge=24) {
   const t=Date.parse(sourceTime(s));
@@ -22,10 +21,10 @@ export function eligible(stations,{now=Date.now(),source='available',members=fal
       ? `${station.countyFips}|${station.address}|${station.city}`.toUpperCase().replace(/[^A-Z0-9|]/g, '')
       : station.id;
     const previous = unique.get(key);
-    const rank = sourcePriority[station.source] ?? 0;
-    const previousRank = sourcePriority[previous?.source] ?? 0;
-    if (!previous || rank > previousRank ||
-        (rank === previousRank && Date.parse(sourceTime(station)) > Date.parse(sourceTime(previous)))) {
+    const published = station.timeBasis === 'published';
+    const previousPublished = previous?.timeBasis === 'published';
+    if (!previous || (previousPublished && !published) ||
+        (published === previousPublished && Date.parse(sourceTime(station)) > Date.parse(sourceTime(previous)))) {
       unique.set(key, station);
     }
   }

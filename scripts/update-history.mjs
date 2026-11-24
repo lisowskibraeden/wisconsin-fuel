@@ -10,7 +10,6 @@ const quoteSources = new Set(['GasBuddy', 'Kwik Trip', 'FuelRadarDash']);
 
 export function mergeHistory(history, counties, stations, reports) {
   const countyById = new Map(counties.map(county => [county.id, county]));
-  const terminalDays = new Map();
   const dayFor = (county, date) => ((history.counties[county.id] ??= {})[date] ??= {});
 
   for (const station of stations) {
@@ -31,16 +30,10 @@ export function mergeHistory(history, counties, stations, reports) {
     quotes[terms] = Math.min(quotes[terms] ?? Infinity, station.price);
   }
 
-  for (const report of reports) {
-    if (!terminalDays.has(report.reportDate)) terminalDays.set(report.reportDate, []);
-    terminalDays.get(report.reportDate).push(report);
-  }
-  for (const [date, dailyReports] of terminalDays) {
-    for (const county of counties) {
-      const floor = floorFor(county, dailyReports);
-      if (!floor) continue;
-      dayFor(county, date).terminal = {wholesale:floor.wholesale, market:floor.market.name, product:floor.product};
-    }
+  for (const county of counties) {
+    const floor = floorFor(county, reports);
+    if (!floor) continue;
+    dayFor(county, floor.reportDate).terminal = {wholesale:floor.wholesale, market:floor.market.name, product:floor.product};
   }
   return history;
 }

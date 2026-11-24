@@ -15,7 +15,7 @@ const logos=Object.fromEntries(await Promise.all(logoFiles.map(async file=>{
   const mime=file.endsWith('.svg')?'image/svg+xml':'image/png';
   return [file, `data:${mime};base64,${(await fs.readFile(logosDir+file)).toString('base64')}`];
 })));
-const app=(await read('app.js')).replace(/^import .+;\n/gm,'').replace('const r=await fetch(url);','if(Object.hasOwn(embeddedData,url))return embeddedData[url];const r=await fetch(url);');
+const app=(await read('app.js')).replace(/^import .+;\n/gm,'');
 let html=await read('index.html');html=html.replace(/<link rel="icon"[^>]+>/,'').replace(/<link rel="stylesheet"[^>]+>/g,'').replace(/<script[^>]+><\/script>/g,'').replace('</head>',()=>`<style>${styles}</style></head>`);
 // Use one script to share the pure model bindings without browser module imports.
 const leaflet=await read('vendor/leaflet.js');

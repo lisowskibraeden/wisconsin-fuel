@@ -63,6 +63,18 @@ test('the chart preserves separate gaps in the quote and estimate series', () =>
   assert.match(historyLines(points, 'estimate', chartX, chartY), /^M0\.00,\d+\.\d+ M3\.00,\d+\.\d+$/);
 });
 
+test('a newer Madison report updates only counties assigned to that market', () => {
+  const history = {schemaVersion:1, counties:{}};
+  const reports = [
+    {id:'967',reportDate:'2026-11-23',prices:{ULC10:2.3152}},
+    {id:'963',reportDate:'2026-11-20',prices:{ULC10:2.26}},
+  ];
+  mergeHistory(history, counties, [], reports);
+  assert.equal(history.counties['55025']['2026-11-23'].terminal.wholesale, 2.3152);
+  assert.equal(history.counties['55009']['2026-11-20'].terminal.wholesale, 2.26);
+  assert.equal(history.counties['55009']['2026-11-23'], undefined);
+});
+
 test('selecting a history date updates its quote and changing counties renders local estimates', () => {
   const daneDays = {
     '2026-11-01':{quotes:{GasBuddy:{standard:3.499}}},

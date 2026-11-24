@@ -11,6 +11,16 @@ test('cost arithmetic follows Dane Fuel and rounds upward to a tenth cent',()=>{
 test('southeast counties use RFG, other counties use conventional; stale estimates flagged',()=>{const dane=floorFor(counties.find(c=>c.name==='Dane'),reports,{now}),milwaukee=floorFor(counties.find(c=>c.name==='Milwaukee'),reports,{now});assert.equal(dane.market.id,'967');assert.equal(dane.product,'ULC10');assert.equal(milwaukee.product,'87RE10');assert.equal(milwaukee.price,3.044);assert.equal(dane.stale,false);assert.equal(floorFor(counties[0],reports,{now:now+7*86400000}).stale,true);});
 test('expired, missing, future, non-Wisconsin and wrong-grade prices are excluded',()=>{assert.equal(fresh(station,now),true);for(const s of [{...station,reportedAt:null},{...station,reportedAt:'2026-11-15T00:00:00Z'},{...station,reportedAt:'2026-11-19T00:00:00Z'},{...station,state:'MN'},{...station,fuel:'diesel'},{...station,price:NaN}])assert.equal(fresh(s,now),false);});
 test('direct quote freshness uses retrieval without inventing a report time',()=>{assert.equal(fresh({...station,reportedAt:null,timeBasis:'retrieved'},now),true);assert.equal(fresh({...station,reportedAt:null,timeBasis:'retrieved',observedAt:'2026-11-14T00:00:00Z'},now),false);});
-test('source, membership and cash filters stay independent and GasBuddy wins exact address duplicates',()=>{const direct={...station,id:'kt1',source:'Kwik Trip',price:3.6,timeBasis:'retrieved'};assert.equal(eligible([station,direct],{now}).length,1);assert.equal(eligible([station,direct],{now})[0].source,'GasBuddy');assert.equal(eligible([station,direct],{now,source:'Kwik Trip'})[0].price,3.6);assert.equal(eligible([{...station,membership:true}],{now}).length,0);assert.equal(eligible([{...station,payment:'cash'}],{now}).length,0);});
+test('the lowest price uses the newest direct or reported quote per station', () => {
+  const direct={...station,id:'kt1',source:'Kwik Trip',price:3.3,timeBasis:'retrieved'};
+  const published={...direct,id:'published:kt1',source:'FuelRadarDash',price:3.2,timeBasis:'published',observedAt:'2026-11-18T01:55:00Z'};
+  const other={...station,id:'2',address:'825 Main St',price:3.4};
+  assert.deepEqual(eligible([station,published,direct,other],{now}),[direct,other]);
+  const newerReport={...station,price:3.6,reportedAt:'2026-11-18T01:45:00Z'};
+  assert.deepEqual(eligible([other,direct,newerReport,published],{now}),[other,newerReport]);
+  assert.deepEqual(eligible([station,published,direct],{now,source:'GasBuddy'}),[station]);
+  assert.equal(eligible([{...station,membership:true}],{now}).length,0);
+  assert.equal(eligible([{...station,payment:'cash'}],{now}).length,0);
+});
 test('signals compare the low quote; no signal without fresh sources',()=>{const floor={price:3.2,stale:false};assert.equal(compare([station],floor,now).kind,'room');assert.equal(compare([{...station,price:3.28}],floor,now).kind,'near');assert.equal(compare([{...station,price:3.35}],floor,now).kind,'room');assert.equal(compare([{...station,price:3.3}],floor,now).kind,'watch');assert.equal(compare([station],{...floor,stale:true},now).kind,'unknown');assert.equal(compare([],floor,now).gap,null);});
 test('county geometry includes Wisconsin stations and excludes outside points',()=>{assert.equal(counties.length,72);assert.equal(inside([-89.4012,43.0731],counties.find(c=>c.name==='Dane').feature.geometry),true);assert.equal(inside([-87.63,41.88],counties.find(c=>c.name==='Dane').feature.geometry),false);});

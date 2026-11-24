@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import {eligible,costFloor,countyModels,floorFor,parseTerminals,fresh} from '../site/model.js';
+import {eligible,costFloor,countyModels,floorFor,parseTerminals,fresh,sourceTime,inside} from '../site/model.js';
 const root=new URL('../',import.meta.url);
 const read=name=>fs.readFile(new URL(name,root),'utf8');
 const data=async name=>JSON.parse(await read('site/data/'+name));
@@ -56,4 +56,34 @@ assert.equal(saves,1);assert.equal(renders,1);
 assert.ok(costFloor(2.278,deliveryState.delivery).price>3.075);
 field.oninput({target:{value:'-5'}});assert.equal(deliveryState.delivery,.075);
 field.oninput({target:{value:'2.5'}});assert.equal(costFloor(2.278,deliveryState.delivery).price,3.075);
+
+const fields = new Map();
+let currentQuote = {...station, observedAt:'2026-11-23T15:00:00Z'};
+const priceContext = vm.createContext({
+  eligible, floorFor, fresh, sourceTime, inside, AbortSignal, Intl, countiesFixture:counties,
+  Date:class extends Date { static now() { return Date.parse('2026-11-23T17:00:00Z'); } },
+  document:{hidden:false,getElementById(id) {
+    if (!fields.has(id)) fields.set(id, {});
+    return fields.get(id);
+  }},
+  fetch:async (url, options) => {
+    assert.equal(options.cache, 'no-cache');
+    if (url === 'data/published-prices.json') throw Error('Temporary network failure');
+    const content = url === 'data/terminals.json' ? {reports} :
+      {stations:url === 'data/fallback.json' ? [currentQuote] : []};
+    return new Response(JSON.stringify(content));
+  },
+});
+vm.runInContext(app.replace(/^import .+;\n/gm,'').replace(/\ninit\(\);\s*$/,'') + `
+  counties = countiesFixture;
+  archivedStations = [];
+  renderCounty = () => {};
+  renderMap = () => {};
+`, priceContext);
+await vm.runInContext('refreshDisplayedPrices()', priceContext);
+assert.equal(fields.get('summary-low').textContent, '$3.499');
+currentQuote = {...currentQuote, price:3.199, observedAt:'2026-11-23T16:30:00Z'};
+await vm.runInContext('refreshDisplayedPrices()', priceContext);
+assert.equal(fields.get('summary-low').textContent, '$3.199');
+assert.match(fields.get('summary-low-place').textContent, /10:30 AM CT/);
 console.log('PASS: data import, 72-county geometry, snapshot county assignments, freshness, regional grades, rounding, standalone script syntax, CSV escaping/download wiring, and delivery-cost control.');
