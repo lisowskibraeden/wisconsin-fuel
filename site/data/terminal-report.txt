@@ -1,82 +1,82 @@
 AXXIS Software, LLC - Price Services Copyright (c) 2026 by AXXIS Software, LLC
 
-291 DUBUQUE, IA                                                            Date: 11/23/2026 10:30 AM
+291 DUBUQUE, IA                                                            Date: 11/24/2026 10:30 AM
                                    Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-84  UNL-87  PRM-91   ULC10   MDC10  P91C10  P92C10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               4.0394  2.5328  2.6452  2.8559  2.2364  2.3703  2.4725  2.3560  2.6163  2.1327
+Contract Average               3.7616  2.4356  2.5332  2.6301  2.1417  2.2725  2.3658  2.2695  2.5064  2.0408
 
-335 CHICAGO, IL                                        Date: 11/23/2026 10:30 AM
+335 CHICAGO, IL                                        Date: 11/24/2026 10:30 AM
                          Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  87RE10  93RE10  88RE15 
 -----------------------------  ------  ------  ------  ------ 
-Contract Average               3.6662  2.2430  3.4217  2.1570
+Contract Average               3.4884  2.1621  3.3474  2.0764
 
-355 ROCKFORD, IL                                                           Date: 11/23/2026 10:30 AM
+355 ROCKFORD, IL                                                           Date: 11/24/2026 10:30 AM
                                    Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-87  PRM-90  PRM-91   ULC10   MDC10  P91C10  P92C10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               3.8675  3.0369  3.9144  3.7415  2.3409  2.8099  3.0586  3.0065  3.5025  2.1640
+Contract Average               3.6986  2.9212  3.8193  3.6235  2.2307  2.7000  2.9429  2.9225  3.3928  2.0800
 
-503 DULUTH, MN                                                             Date: 11/23/2026 10:30 AM
+503 DULUTH, MN                                                             Date: 11/24/2026 10:30 AM
                                    Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-84  UNL-87  PRM-91   ULC10   MDC10  P91C10  P92C10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               4.1155  3.2200  2.8610  3.0146  2.2958  2.3956  2.5051  2.5333  2.5537  2.1685
+Contract Average               3.8279  3.1100  2.7546  2.8954  2.2000  2.2903  2.3951  2.4232  2.4277  2.0677
 
-511 MPLS/ST.PAUL, MN                                                       Date: 11/23/2026 10:30 AM
+511 MPLS/ST.PAUL, MN                                                       Date: 11/24/2026 10:30 AM
                                    Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-84  UNL-87  PRM-91   ULC10   MDC10  P91C10  P92C10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               4.0526  2.5520  2.6376  2.8073  2.2445  2.3567  2.4328  2.4875  2.5469  2.1251
+Contract Average               3.7706  2.4449  2.5472  2.7354  2.1506  2.2611  2.3375  2.3926  2.4499  2.0313
 
-513 ROCHESTER, MN                                                          Date: 11/23/2026 10:30 AM
+513 ROCHESTER, MN                                                          Date: 11/24/2026 10:30 AM
                                    Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-84  UNL-87  PRM-91   ULC10   MDC10  P91C10  P92C10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               4.0358  2.5002  2.6306  2.8408  2.2335  2.3498  2.4055  2.4671  2.5180  2.1170
+Contract Average               3.7492  2.4038  2.5292  2.7374  2.1393  2.2580  2.3120  2.3714  2.4231  2.0291
 
-961 CHIPPEWA FALLS, WI                                              Date: 11/23/2026 10:30 AM
+961 CHIPPEWA FALLS, WI                                              Date: 11/24/2026 10:30 AM
                                Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-87  PRM-91   ULC10   MDC10  P91C10  P92C10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               4.0894  3.0060  3.0611  2.2854  2.5618  2.8223  2.8333  2.9814  2.2303
+Contract Average               3.8078  2.9099  2.9503  2.1939  2.4704  2.7328  2.7434  2.8914  2.1400
 
-963 GREEN BAY, WI                                            Date: 11/23/2026 10:30 AM
+963 GREEN BAY, WI                                            Date: 11/24/2026 10:30 AM
                             Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-87  PRM-90  PRM-91   ULC10   MDC10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               3.8124  3.3792  4.0949  3.9959  2.4468  2.8993  3.5709  2.2792
+Contract Average               3.6481  3.2742  3.9747  3.8863  2.3418  2.7901  3.4613  2.1720
 
-965 JUNCTION CITY, WI                                               Date: 11/23/2026 10:30 AM
+965 JUNCTION CITY, WI                                               Date: 11/24/2026 10:30 AM
                                Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-87  PRM-91   ULC10   MDC10  P91C10  P92C10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               3.8736  2.7362  3.7281  2.3935  2.8955  3.0599  3.2222  3.4494  2.3017
+Contract Average               3.6969  2.6206  3.6161  2.2801  2.7824  2.9415  3.1037  3.3377  2.1853
 
-967 MADISON, WI                                                     Date: 11/23/2026 10:30 AM
+967 MADISON, WI                                                     Date: 11/24/2026 10:30 AM
                                Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-87  PRM-91   ULC10   MDC10  P91C10  P92C10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               3.7489  2.6202  3.7207  2.3152  2.7759  3.0395  3.1783  3.4322  2.2117
+Contract Average               3.5919  2.5047  3.6130  2.2077  2.6670  2.9241  3.0617  3.3201  2.1022
 
-969 MILWAUKEE, WI                                                                 Date: 11/23/2026 10:30 AM
+969 MILWAUKEE, WI                                                                 Date: 11/24/2026 10:30 AM
                                       Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-87  PRM-91   ULC10   MDC10  P91C10  P93C10  87RE10  93RE10   ULC15  88RE15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               3.7533  3.3183  3.8257  2.2828  2.7322  3.0970  3.3950  2.3052  3.3951  2.1612  2.2172
+Contract Average               3.5892  3.2151  3.7166  2.1727  2.6211  2.9770  3.2861  2.2274  3.3228  2.0523  2.1362
 
-971 SUPERIOR, WI                                                    Date: 11/23/2026 10:30 AM
+971 SUPERIOR, WI                                                    Date: 11/24/2026 10:30 AM
                                Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-87  PRM-91   ULC10   MDC10  P91C10  P92C10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               4.1151  2.8659  3.0532  2.3022  2.4270  2.5566  2.6241  2.5417  2.1944
+Contract Average               3.8420  2.7633  2.9395  2.2085  2.3264  2.4515  2.5152  2.4102  2.0928
 
-973 WAUPUN, WI                                                      Date: 11/23/2026 10:30 AM
+973 WAUPUN, WI                                                      Date: 11/24/2026 10:30 AM
                                Axxis Petroleum Gross Price Report which excludes prompt pay discounts
 Supplier                       NO2ULS  UNL-87  PRM-91   ULC10   MDC10  P91C10  P92C10  P93C10   ULC15 
 -----------------------------  ------  ------  ------  ------  ------  ------  ------  ------  ------ 
-Contract Average               3.7550  2.6081  3.5787  2.3534  2.8661  3.0420  3.0700  3.4282  2.2780
+Contract Average               3.6036  2.4925  3.4659  2.2386  2.7529  2.9220  2.9500  3.3134  2.1648
 
 Contract Average calculated on Gross prices which exclude prompt pay discounts.
 Copyright © 2026 by Axxis Software LLC. Data obtained from sources deemed reliable.
