@@ -34,14 +34,19 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
-      - name: Install browser for public GasBuddy listings
+      - name: Set up Chrome for the Dane Fuel search collector
         continue-on-error: true
         run: |
-          timeout 150s bash -e -c '
+          timeout 240s bash -e -c '
             npm install --no-package-lock --fetch-retries=1
-            npx --no-install playwright install --with-deps chromium
+            npx --no-install playwright install --with-deps chrome
           '
-      - run: npm run refresh -- --gasbuddy-county-pages
+      - run: |
+          if command -v xvfb-run >/dev/null && test -x /opt/google/chrome/chrome; then
+            xvfb-run -a npm run refresh -- --gasbuddy-statewide-search --headed
+          else
+            npm run refresh
+          fi
       - run: node scripts/update-history.mjs
       - run: npm test
       - name: Check refreshed site and data
@@ -56,7 +61,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           data_files=(site/data/terminal-report.txt site/data/terminals.json site/data/fallback.json
-            site/data/gasbuddy-current.json site/data/published-prices.json site/data/history.json)
+            site/data/gasbuddy-current.json site/data/published-prices.json site/data/costco-prices.json site/data/history.json)
           git add -- "${data_files[@]}"
           if ! git diff --cached --quiet; then
             git commit -m "Update Wisconsin fuel data ($(TZ=America/Chicago date +%F))"

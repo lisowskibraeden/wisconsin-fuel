@@ -11,7 +11,9 @@ function streetKey(address) {
 }
 
 export const hasLocation = station => Number.isFinite(station.lat) && Number.isFinite(station.lng);
-const brandKey = station => digitsAndLetters((station.brand || station.name || '').replace(/\s*#\d+\b.*/, ''));
+export const addressCityKey = (address,city) => `${streetKey(address)}|${digitsAndLetters(city)}`;
+const brandKey = station => digitsAndLetters((station.brand || station.name || '')
+  .replace(/\s*#\d+\b.*/, '').replace(/^costco\b.*/i,'Costco'));
 
 export function createLocationLookup(locations) {
   const byAddress = new Map();
@@ -33,7 +35,7 @@ export function createLocationLookup(locations) {
 }
 
 export function unpricedLocations(locations, quotes, matchAddress) {
-  const matched = new Set(quotes.map(quote => matchAddress(quote)?.id));
+  const matched = new Set(quotes.filter(hasLocation).map(quote => matchAddress(quote)?.id));
   const grid = new Map();
   const gridCell = value => Math.floor(value * 500);
   for (const quote of quotes.filter(hasLocation)) {

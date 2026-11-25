@@ -4,13 +4,15 @@ import os from 'node:os';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {test} from 'node:test';
-import {parseTerminals} from '../site/model.js';
+import {countyModels, eligible, parseTerminals} from '../site/model.js';
 import {refresh} from '../scripts/refresh.mjs';
-import {readPublisherSnapshot} from '../scripts/source-pages.mjs';
+import {COSTCO_RADAR, readCostcoPrices, readPublisherSnapshot} from '../scripts/source-pages.mjs';
+import {locateSearchReports} from '../scripts/gasbuddy-statewide.mjs';
 
 const fixtureTerminals = await fs.readFile(new URL('./fixtures/terminal-report.txt',import.meta.url),'utf8');
 const now = Date.parse('2026-11-22T16:40:00Z');
 const date = '2026-11-17T16:40:00.000Z';
+const counties = countyModels(JSON.parse(await fs.readFile(new URL('../site/data/counties.geojson',import.meta.url))));
 const direct = (id,address) => ({id:'kwiktrip:' + id,name:'Kwik Trip #' + id,address,city:'MADISON',
   county:'Dane',countyFips:'55025',state:'WI',lat:43.07,lng:-89.39,fuel:'regular',
   price:3.499,source:'Kwik Trip',observedAt:date,timeBasis:'retrieved'});
@@ -23,6 +25,33 @@ const publishedMarkup = (updated, address, price, expected=2) => `
   <div>Stations <strong>${expected}</strong></div><div>Average Regular</div>
   <table><tbody><tr><td><a href="/store/">${address}</a></td><td>Madison</td><td>Wisconsin</td>
   <td>$${price}</td></tr></tbody></table><small>Updated ${updated}</small>`;
+
+test('Costco snapshots retain the publisher timestamp and membership terms', async () => {
+  const path = '/gas-station/costco-1020-middleton-wi/';
+  const snapshot = await readCostcoPrices(async url => {
+    if (url === COSTCO_RADAR) return publishedMarkup('Nov 22, 2026, 08:21 AM EST','2150 Deming Way','3.099',1)
+      .replace('/store/',path).replace('<td>Madison','<td>Middleton');
+    assert.equal(new URL(url).pathname,path);
+    const details = {'@type':'GasStation',brand:{name:'Costco'},address:{streetAddress:'2150 Deming Way',
+      addressLocality:'Middleton',addressRegion:'Wisconsin'},geo:{latitude:43.1,longitude:-89.522}};
+    return `<script type="application/ld+json">${JSON.stringify(details)}</script>`;
+  },{stations:[]},now,counties);
+  const [quote] = snapshot.stations;
+  assert.equal(quote.countyFips,'55025');
+  assert.equal(quote.observedAt,'2026-11-22T13:21:00.000Z');
+  assert.equal(quote.reportedAt,null);
+  assert.equal(eligible([quote],{now,members:true})[0].price,3.099);
+  assert.deepEqual(eligible([quote],{now,members:false}),[]);
+});
+
+test('search reports use exact Wisconsin locations outside Dane County',async () => {
+  const quote = {...gasReport,address:'123 N Main St',city:'Green Bay',countyFips:undefined,reportedAt:'2026-11-22T12:00:00Z'};
+  const place = {address:'123 North Main Street',city:'Green Bay',countyFips:'55009',county:'Brown',lat:44.52,lng:-88.01};
+  const found = await locateSearchReports([quote],{locations:[place],known:[],locationCache:{},counties,now,
+    read:async () => assert.fail('An exact address match should require no network request')});
+  assert.equal(found[0].countyFips,'55009');
+  assert.equal(found[0].reportedAt,quote.reportedAt);
+});
 
 test('round-trip refresh preserves failed sources and old stations while recording new dated observations',async t => {
   const folder = await fs.mkdtemp(path.join(os.tmpdir(),'wi-fuel-refresh-'));

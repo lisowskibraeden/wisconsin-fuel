@@ -4,7 +4,8 @@ import {countyModels, fresh, inside, MARKETS, parseTerminals, sourceTime} from '
 import {collectCountyPages} from './gasbuddy-county-pages.mjs';
 import {cachedStationLocation, parsePageSample} from './import-gasbuddy.mjs';
 import {normalizePublishedPrices} from './import-published-prices.mjs';
-import {parseStoreDirectory, readPublisherSnapshot, STORE_DIRECTORY} from './source-pages.mjs';
+import {parseStoreDirectory, readCostcoPrices, readPublisherSnapshot, STORE_DIRECTORY} from './source-pages.mjs';
+import {locateSearchReports, statewideSearchAreas} from './gasbuddy-statewide.mjs';
 
 const DATA = new URL('../site/data/', import.meta.url);
 const AXXIS = 'https://old.axxispetro.com/download/wisconsin-cta.txt';
@@ -51,7 +52,7 @@ async function readKwikTrip(store, read, counties) {
     membership:false,payment:'unspecified',url};
 }
 
-export async function refresh({data=DATA,fetchResource=fetch,collectGasBuddy=null,log=console.log,now=Date.now()}={}) {
+export async function refresh({data=DATA,fetchResource=fetch,collectGasBuddy=null,collectSearch=null,log=console.log,now=Date.now()}={}) {
   const attemptedAt = new Date(now).toISOString();
   const readData = async name => JSON.parse(await fs.readFile(new URL(name,data),'utf8'));
   async function write(name,value) {
@@ -166,6 +167,19 @@ export async function refresh({data=DATA,fetchResource=fetch,collectGasBuddy=nul
         return {};
       });
       let pages;
+      let searchReports = [];
+      if (collectSearch) {
+        try {
+          const search = await collectSearch(statewideSearchAreas(counties,now));
+          if (search.fatal) log('GasBuddy paginated search: ' + search.fatal);
+          const locations = await readData('station-locations.json');
+          searchReports = await locateSearchReports(search.stations,{locations:locations.stations,
+            known:[...gas.stations,...direct.stations,...published.stations],locationCache,counties,read,now:Date.now()});
+          log(`GasBuddy paginated search: ${searchReports.length} fresh, located reports in ${new Set(searchReports.map(row => row.countyFips)).size} counties.`);
+        } catch (error) {
+          log('GasBuddy paginated search unavailable. ' + error.message);
+        }
+      }
       if (collectGasBuddy) {
         try {
           const sample = await collectGasBuddy(counties);
@@ -176,13 +190,14 @@ export async function refresh({data=DATA,fetchResource=fetch,collectGasBuddy=nul
         }
       }
       const eligiblePages = (pages?.stations || []).filter(row => fresh(row,Date.now()));
-      if (!eligiblePages.length && !dane.rows.length) throw Error('No valid GasBuddy station reports were available.');
+      if (!eligiblePages.length && !dane.rows.length && !searchReports.length) throw Error('No valid GasBuddy station reports were available.');
       const daneRows = dane.rows.map(row => ({...row, ...cachedStationLocation(row, locationCache, counties)}));
-      const {rows, updated} = mergeQuotes(gas.stations,[...eligiblePages,...daneRows]);
+      const {rows, updated} = mergeQuotes(gas.stations,[...eligiblePages,...daneRows,...searchReports]);
       if (!updated) return 'No newer station reports. Saved reports keep their original timestamps.';
       const metadata = new Map((gas.pages || []).map(page => [page.county,page]));
       for (const page of pages?.pages || []) metadata.set(page.county,page);
-      const timestamps = [gas.retrievedAt,pages?.retrievedAt,dane.timestamp].filter(value => Number.isFinite(Date.parse(value)));
+      const timestamps = [gas.retrievedAt,pages?.retrievedAt,dane.timestamp,...searchReports.map(row => row.observedAt)]
+        .filter(value => Number.isFinite(Date.parse(value)));
       await write('gasbuddy-current.json',{...gas,retrievedAt:timestamps.sort().at(-1) || gas.retrievedAt,
         latestDaneFuelAt:Date.parse(dane.timestamp) > (Date.parse(gas.latestDaneFuelAt) || -Infinity) ? dane.timestamp : gas.latestDaneFuelAt,
         pages:[...metadata.values()].sort((a,b) => a.county.localeCompare(b.county)),
@@ -202,12 +217,28 @@ export async function refresh({data=DATA,fetchResource=fetch,collectGasBuddy=nul
       return result.stations.length + ' matched quotes in ' + new Set(result.stations.map(row => row.countyFips)).size +
         ' counties. ' + unmatched.length + ' station addresses did not match.';
     }),
+    attempt('Costco via FuelRadarDash', async () => {
+      const previous = await readData('costco-prices.json').catch(error => {
+        if (error.code !== 'ENOENT') throw error;
+        return {stations:[]};
+      });
+      const current = await readCostcoPrices(read,previous,now,counties);
+      if (!current) return 'No newer Costco snapshot.';
+      await write('costco-prices.json',current);
+      return current.stations.filter(row => row.observedAt === current.publishedAt).length + ' Costco member prices updated.';
+    }),
   ]);
   return {states,successful};
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const {states,successful} = await refresh({collectGasBuddy:process.argv.includes('--gasbuddy-county-pages') ? collectCountyPages : null});
+  const args = process.argv.slice(2);
+  const collectSearch = args.includes('--gasbuddy-statewide-search') ? async towns => {
+    const {collectGasBuddy} = await import('./gasbuddy.mjs');
+    const headed = args.includes('--headed');
+    return collectGasBuddy({towns,headless:!headed,standardChrome:headed,deadline:Date.now()+9*60000});
+  } : null;
+  const {states,successful} = await refresh({collectSearch,collectGasBuddy:args.includes('--gasbuddy-county-pages') ? collectCountyPages : null});
   const outcome = successful ? 'Verified ' + successful + ' of ' + Object.keys(states).length + ' sources.' :
     'Every source failed verification. All prior data has been preserved.';
   if (process.env.GITHUB_STEP_SUMMARY) {

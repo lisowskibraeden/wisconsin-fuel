@@ -12,7 +12,7 @@ At street zoom, **Available sources** shows dated station prices alongside mappe
 
 The Pages workflow publishes `site/` on pushes to `main`. The refresh workflow is scheduled daily for **10:40 a.m. America/Chicago**, including daylight saving time. It can also be run from the Actions tab. GitHub may queue scheduled runs when Actions is busy.
 
-The daily workflow attempts GasBuddy county listings and the public Dane Fuel export, direct Kwik Trip station quotes, the dated FuelRadarDash snapshot, and the AXXIS terminal report. Data from unavailable sources keeps its original timestamps. The workflow adds newly observed county and date records to `site/data/history.json`, validates the site, commits changed data to the default branch, and deploys that commit to Pages in the same run.
+The daily workflow runs Dane Fuel’s paginated GasBuddy search in Chrome across rotating Wisconsin cities and counties. It also checks the public Dane Fuel export, direct Kwik Trip quotes, dated FuelRadarDash snapshots for Kwik Trip and Costco, and the AXXIS terminal report. Data from unavailable sources keeps its original timestamps. Costco and other membership quotes appear when **Member prices** is selected. The workflow records county history, validates the site, commits changed data, and deploys that commit to Pages.
 
 For the initial deployment, run these commands from the project folder with GitHub CLI authenticated. If using an extracted source ZIP, first initialize the Git repository and commit the files with `git init -b main`, `git add .`, and `git commit -m "Build the Wisconsin fuel map"`. Set `origin` to the GitHub repository if it has not been added yet.
 
@@ -41,7 +41,7 @@ The estimated minimum reuses Dane Fuel's automatic terminal-cost scenario: `(who
 
 ## Updating and checks
 
-- `npm run refresh`: refresh AXXIS, Kwik Trip, the public Dane Fuel export and FuelRadarDash. Add `-- --gasbuddy-county-pages` to also try the public GasBuddy county pages with Playwright.
+- `npm run refresh`: refresh AXXIS, Kwik Trip, the public Dane Fuel export and FuelRadarDash. Add `-- --gasbuddy-statewide-search --headed` to run the paginated search using Chrome. On a headless runner use `xvfb-run -a` as in the workflow.
 - `node scripts/update-history.mjs`: add saved quotes and terminal reports to the county history without replacing prior dates. Pump-price records use Central report or observation dates. The chart applies the selected source, payment and membership filters, plus the current delivery setting for the historical estimate.
 - `npm run import:gasbuddy`: rebuild the normalized snapshot from saved public county-page observations.
 - `node scripts/import-published-prices.mjs <price-table.json> <store-directory.json>`: import a dated FuelRadarDash snapshot using station addresses and coordinates from the official directory.

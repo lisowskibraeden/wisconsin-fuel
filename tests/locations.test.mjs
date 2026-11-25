@@ -17,9 +17,10 @@ test('street matching uses the normalized address and city', () => {
 test('only location pins represented by a priced station are removed', () => {
   const match = createLocationLookup(locations);
   const quotes = [
-    {name:'BP',address:'100 N MAIN ST',city:'MADISON',countyFips:'55025',price:3.25},
+    {name:'BP',address:'100 N MAIN ST',city:'MADISON',countyFips:'55025',lat:43.071,lng:-89.405,price:3.25},
     {name:'Kwik Trip #121',lat:43.0731,lng:-89.4061,price:3.23},
   ];
   assert.deepEqual(unpricedLocations(locations,quotes,match).map(place=>place.id), ['node/2']);
   assert.equal(unpricedLocations(locations,[],match).length, 3);
+  assert.equal(unpricedLocations(locations,[{...quotes[0],lat:undefined}],match).length, 3);
 });

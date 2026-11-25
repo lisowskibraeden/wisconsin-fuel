@@ -37,7 +37,7 @@ export function searchVariables(previous,{search,cursor}){
  return values;
 }
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
-export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standardChrome=false,log=console.log}={}){
+export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standardChrome=false,deadline=Infinity,log=console.log}={}){
  const pages=[],stations=[],inventory=new Set();let session,fatal=null;
  try{
   session=await openBrowser({headless,channel,standardChrome});
@@ -70,6 +70,7 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standar
   if(!metadataResponse?.ok()||!templates.has('LocationBySearchTerm')||!templates.has('SearchPrices'))throw Error('The normal website did not provide usable search request templates');
   await metadataResponse.finished();
   const request=async (operation,variables)=>{
+   if(Date.now()>=deadline)throw Error('Collection time budget reached');
    await pause(5000);
    const template=templates.get(operation),values=searchVariables(template.variables,variables);
    const payload={...template,variables:values};
@@ -81,7 +82,7 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standar
    if(result.status===429){
     const header=result.retryAfter,seconds=header&&/^\d+$/.test(header)?Number(header):header?Math.max(0,(Date.parse(header)-Date.now())/1000):60;
     const wait=Math.max(60,Number.isFinite(seconds)?seconds:60);
-    if(wait>120)throw Error(`Price service HTTP 429; requested cooldown ${wait}s exceeds this run's retry budget`);
+    if(wait>120||Date.now()+wait*1000>=deadline)throw Error(`Price service HTTP 429; requested cooldown ${wait}s exceeds this run's retry budget`);
     log(`Rate limited: honoring ${wait}s cooldown before one retry.`);
     await pause(wait*1000);result=await call();
    }
@@ -96,6 +97,7 @@ export async function collectGasBuddy({towns=TOWNS,headless=true,channel,standar
    return {...connection,location:result.json.data.locationBySearchTerm.displayName,region:result.json.data.locationBySearchTerm.regionCode};
   };
   for(const town of towns){
+   if(Date.now()>=deadline)break;
    // GasBuddy resolves the state name before the Wisconsin village name.
    // Village ZIP: https://oregonwi.gov/31/Residents
    const search=town==='oregon'?'53575':town.replaceAll('-',' ')+', WI';
