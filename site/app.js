@@ -104,7 +104,7 @@ function renderStationPins() {
       iconSize:[width,34], iconAnchor:[width / 2,17], popupAnchor:[0,-17],
     };
     const title = `${station.name} · ${label}${station.membership ? ' · Membership required' : ''}`;
-    const marker = L.marker(coordinates, {title, icon:L.divIcon({className:'station-marker', ...icon})});
+    const marker = L.marker(coordinates, {title, autoPanOnFocus:false, icon:L.divIcon({className:'station-marker', ...icon})});
     marker.on('add', () => marker.getElement()?.setAttribute('aria-label', title));
     const address = [station.address, station.city].filter(Boolean).map(esc).join(', ');
     const details = priced
@@ -135,7 +135,20 @@ function renderMap(){if(!map)return;geoLayer.setStyle(layerStyle);geoLayer.eachL
 function render(){recompute();renderSummary();renderCounty();renderMap();}
 function initializeMap(geo){map=L.map('map',{zoomControl:false,minZoom:5,maxZoom:19,scrollWheelZoom:true,attributionControl:true});streetLayer=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',maxZoom:19,opacity:1}).addTo(map);geoLayer=L.geoJSON(geo,{style:layerStyle,onEachFeature:(f,layer)=>{const c=counties.find(c=>c.id===f.id);layer.bindTooltip(countyTooltip(c),{sticky:true});layer.on({click:()=>selectCounty(c.id),mouseover:()=>layer.setStyle({weight:2,color:'#658570'}),mouseout:()=>geoLayer.resetStyle(layer)});layer.on('add',()=>{const path=layer.getElement();if(path){path.setAttribute('tabindex','0');path.setAttribute('role','button');path.setAttribute('aria-label',c.name+' County');path.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectCounty(c.id);}});}});}}).addTo(map);stationLayer=L.layerGroup().addTo(map);labelLayer=L.layerGroup().addTo(map);L.control.zoom({position:'topright'}).addTo(map);map.fitBounds(geoLayer.getBounds(),{padding:[35,55]});map.on('moveend',renderPins);map.on('zoomend',()=>{geoLayer.setStyle(layerStyle);renderLegend();});$('fit-map').onclick=()=>map.fitBounds(geoLayer.getBounds(),{padding:[35,55]});$('show-stations').onchange=renderPins;$('basemap').onchange=e=>{if(e.target.checked)streetLayer.addTo(map);else map.removeLayer(streetLayer);renderMap();};map.attributionControl.addAttribution('<a href="https://www.openstreetmap.org/copyright">Station locations © OpenStreetMap contributors</a>');map.attributionControl.addAttribution('<a href="https://github.com/plotly/datasets/blob/master/geojson-counties-fips.json" target="_blank" rel="noreferrer">County boundaries: Census via Plotly</a>');}
 function search(){const term=$('place-search').value.trim().toLowerCase();if(!term){$('search-results').hidden=true;return;}searchChoices=[];for(const c of counties.filter(c=>c.name.toLowerCase().includes(term)))searchChoices.push({label:c.name+' County',detail:'Wisconsin · explore local prices',id:c.id});const cities=new Set();for(const s of allStations){const city=s.city.toLowerCase();if(city.includes(term)&&!cities.has(city)){cities.add(city);searchChoices.push({label:s.city.replace(/\b\w/g,c=>c.toUpperCase()),detail:s.county+' County',id:s.countyFips});}}if(searchChoices.length<4)for(const s of [...currentRows,...mapLocations].filter(s=>(s.name+' '+s.address).toLowerCase().includes(term)).slice(0,6))searchChoices.push({label:s.name,detail:[s.address,s.city,s.price?money(s.price)+(s.membership?' member price':''):null].filter(Boolean).join(' · '),id:s.countyFips,station:s});searchChoices=searchChoices.slice(0,8);$('search-results').hidden=false;$('search-results').innerHTML=searchChoices.length?searchChoices.map((r,i)=>`<button data-result="${i}">${esc(r.label)}<small>${esc(r.detail)}</small></button>`).join(''):'<p>No match. Try a Wisconsin county name.</p>';$('search-results').querySelectorAll('button').forEach(b=>b.onclick=()=>chooseSearch(Number(b.dataset.result)));}
-function chooseSearch(i){const r=searchChoices[i];if(!r)return;$('place-search').value=r.label;$('search-results').hidden=true;selectCounty(r.id,{zoom:true});if(r.station&&Number.isFinite(r.station.lat))map.setView([r.station.lat,r.station.lng],16);}
+function chooseSearch(i) {
+  const result = searchChoices[i];
+  if (!result) return;
+  $('place-search').value = result.label;
+  $('search-results').hidden = true;
+  const station = result.station;
+  const located = station && hasLocation(station);
+  selectCounty(result.id,{zoom:!located});
+  if (!located) return;
+  const coordinates = [station.lat,station.lng];
+  map.setView(coordinates,16,{animate:false});
+  const marker = stationLayer.getLayers().find(pin => pin.getLatLng().equals(coordinates) && pin.options.title.startsWith(`${station.name} · `));
+  marker?.openPopup();
+}
 function openInfo(){$('info-dialog').showModal();}
 function download(){const rows=eligible(allStations,{source:state.source,members:state.members,cash:state.cash}),head=['station','address','city','county','source','regular_price','reported_at','retrieved_at','time_basis','estimated_minimum','terminal_market','terminal_date','url','published_at'];const csv=[head,...rows.map(s=>{const c=counties.find(c=>c.id===s.countyFips),f=c?estimate(c):null;return [s.name,s.address,s.city,s.county,s.source,s.price,s.reportedAt||'',s.timeBasis==='published'?'':s.observedAt,s.timeBasis,f?.price??'',f?.market.name??'',f?.reportDate??'',s.url,s.timeBasis==='published'?s.observedAt:''];})].map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='wisconsin-fuel-'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 const priceFiles = {
@@ -144,6 +157,7 @@ const priceFiles = {
   fallback: 'data/fallback.json',
   published: 'data/published-prices.json',
   costco: 'data/costco-prices.json',
+  gaswiser: 'data/gaswiser-prices.json',
   history: 'data/history.json',
 };
 let snapshots;
@@ -162,12 +176,12 @@ async function readPriceSnapshots(previous) {
   return Object.fromEntries(entries);
 }
 
-function applyPriceSnapshots({terminals:terminalData, gas:gasSnapshot, fallback, published, costco, history}) {
+function applyPriceSnapshots({terminals:terminalData, gas:gasSnapshot, fallback, published, costco, gaswiser, history}) {
   countyHistoryData = history.counties ?? {};
   reports = terminalData.reports;
   const gasRows = [...archivedStations, ...(gasSnapshot.stations ?? [])].filter(station => station.source === 'GasBuddy');
   const byID = new Map();
-  for (const station of [...gasRows, ...(fallback.stations ?? []), ...(published.stations ?? []), ...(costco.stations ?? [])]) {
+  for (const station of [...gasRows, ...(fallback.stations ?? []), ...(published.stations ?? []), ...(costco.stations ?? []), ...(gaswiser.stations ?? [])]) {
     let county = counties.find(candidate => candidate.id === station.countyFips);
     if (!county && Number.isFinite(station.lat) && Number.isFinite(station.lng)) {
       county = counties.find(candidate => inside([station.lng, station.lat], candidate.feature.geometry));
@@ -184,7 +198,7 @@ function applyPriceSnapshots({terminals:terminalData, gas:gasSnapshot, fallback,
   allStations = [...byID.values()];
   // Use collected station locations as county label positions when available.
   for(const c of counties){const locations=allStations.filter(s=>s.countyFips===c.id&&fresh(s)&&Number.isFinite(s.lat)&&Number.isFinite(s.lng));c.labelCenter=locations.length?{lat:locations.reduce((n,s)=>n+s.lat,0)/locations.length,lng:locations.reduce((n,s)=>n+s.lng,0)/locations.length}:c.center;}
-  $('source-details').innerHTML=`<div class="source-fact"><b>GasBuddy · ${allStations.filter(s=>s.source==='GasBuddy'&&fresh(s)).length} fresh reports</b><small>${gasSnapshot.latestDaneFuelAt?`Dane County refreshed ${fmtDate(gasSnapshot.latestDaneFuelAt)} CT from Dane Fuel. `:''}The paginated search uses GasBuddy’s posted times. County-page samples use relative report ages. Statewide search locations are matched by address.</small></div><div class="source-fact"><b>Kwik Trip direct · ${fallback.stations?.length||0} quotes in ${new Set((fallback.stations||[]).map(s=>s.countyFips)).size} counties</b><small>${fallback.retrievedAt?'Retrieved '+fmtDate(fallback.retrievedAt)+' CT. ':''}Regular-87 quotes from the public first-party store service. Price-change timestamps and explicit payment terms are not supplied. This is one brand, not a market-wide survey.</small></div><div class="source-fact"><b>FuelRadarDash · ${published.stations.length} Kwik Trip-family and ${costco.stations.length} Costco listings</b><small>${published.publishedAt?fmtDate(published.publishedAt)+' CT. ':''}Regular prices matched to station locations. Costco prices require membership. The publisher provides snapshot times. Individual price times are unavailable.</small></div><div class="source-fact"><b>AXXIS · ${reports.length} quoted terminal markets</b><small>${terminalData.retrievedAt?'Retrieved '+fmtDate(terminalData.retrievedAt)+' CT. ':''}Report dates are displayed per county; refreshing the page does not make the source data newer.</small></div>`;
+  $('source-details').innerHTML=`<div class="source-fact"><b>GasBuddy · ${allStations.filter(s=>s.source==='GasBuddy'&&fresh(s)).length} fresh reports</b><small>${gasSnapshot.latestDaneFuelAt?`Dane County refreshed ${fmtDate(gasSnapshot.latestDaneFuelAt)} CT from Dane Fuel. `:''}The paginated search uses GasBuddy’s posted times. County-page samples use relative report ages. Statewide search locations are matched by address.</small></div><div class="source-fact"><b>Kwik Trip direct · ${fallback.stations?.length||0} quotes in ${new Set((fallback.stations||[]).map(s=>s.countyFips)).size} counties</b><small>${fallback.retrievedAt?'Retrieved '+fmtDate(fallback.retrievedAt)+' CT. ':''}Regular-87 quotes from the public first-party store service. Price-change timestamps and explicit payment terms are not supplied. This is one brand, not a market-wide survey.</small></div><div class="source-fact"><b>FuelRadarDash · ${published.stations.length} Kwik Trip-family and ${costco.stations.length} Costco listings</b><small>${published.publishedAt?fmtDate(published.publishedAt)+' CT. ':''}Regular prices matched to station locations. Costco prices require membership. The publisher provides snapshot times. Individual price times are unavailable.</small></div><div class="source-fact"><b>GasWiser · ${gaswiser.stations.filter(s=>fresh(s)).length} fresh reports</b><small>Individual update times from public city listings. Coverage varies by city.</small></div><div class="source-fact"><b>AXXIS · ${reports.length} quoted terminal markets</b><small>${terminalData.retrievedAt?'Retrieved '+fmtDate(terminalData.retrievedAt)+' CT. ':''}Report dates are displayed per county; refreshing the page does not make the source data newer.</small></div>`;
 }
 
 async function refreshDisplayedPrices() {

@@ -2,11 +2,11 @@ import fs from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const read=p=>fs.readFile(root+'site/'+p,'utf8');
-const files=['data/counties.geojson','data/terminals.json','data/fallback.json','data/published-prices.json','data/costco-prices.json','data/gasbuddy-current.json','data/gasbuddy-archive.json','data/history.json','data/station-locations.json'];
+const files=['data/counties.geojson','data/terminals.json','data/fallback.json','data/published-prices.json','data/costco-prices.json','data/gaswiser-prices.json','data/gasbuddy-current.json','data/gasbuddy-archive.json','data/history.json','data/station-locations.json'];
 const data={};for(const f of files){try{data[f]=JSON.parse(await read(f));}catch{data[f]={stations:[]};}}
 const json=value=>JSON.stringify(value).replace(/</g,'\\u003c');
 const styles=(await read('vendor/leaflet.css'))+'\n'+(await read('style.css')).replace(/@font-face\{[^}]+\}/,'');
-const model=(await read('model.js')).replace(/export /g,'');
+const model=(await read('model.js')).replace(/^import .+;\n/gm,'').replace(/export /g,'');
 const brands=(await read('brands.js')).replace(/^export /gm,'');
 const locations=(await read('locations.js')).replace(/^export /gm,'');
 const history=(await read('history.js')).replace(/^import .+;\n/gm,'').replace(/^export /gm,'');

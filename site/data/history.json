@@ -102,7 +102,7 @@
       "2026-11-21": {"quotes":{"GasBuddy":{"standard":3.09,"member":3.09},"FuelRadarDash":{"standard":3.099}}},
       "2026-11-22": {"quotes":{"GasBuddy":{"standard":3.09}}},
       "2026-11-23": {"quotes":{"GasBuddy":{"member":3.09,"standard":3.08},"FuelRadarDash":{"standard":3.099},"Kwik Trip":{"standard":3.089}},"terminal":{"wholesale":2.3152,"market":"Madison, WI","product":"ULC10"}},
-      "2026-11-24": {"quotes":{"GasBuddy":{"member":3.08,"standard":2.99},"Kwik Trip":{"standard":2.999},"FuelRadarDash":{"standard":3.089,"member":3.099}},"terminal":{"wholesale":2.2077,"market":"Madison, WI","product":"ULC10"}}
+      "2026-11-24": {"quotes":{"GasBuddy":{"member":3.08,"standard":2.99},"Kwik Trip":{"standard":2.999},"FuelRadarDash":{"standard":3.089,"member":3.099},"GasWiser":{"standard":3.69}},"terminal":{"wholesale":2.2077,"market":"Madison, WI","product":"ULC10"}}
     },
     "55027": {
       "2026-11-16": {"quotes":{"GasBuddy":{"standard":3.34}}},
@@ -126,7 +126,7 @@
       "2026-11-20": {"terminal":{"wholesale":2.2893,"market":"Superior, WI","product":"ULC10"}},
       "2026-11-21": {"quotes":{"FuelRadarDash":{"standard":3.339}}},
       "2026-11-23": {"quotes":{"FuelRadarDash":{"standard":3.249},"Kwik Trip":{"standard":3.199}},"terminal":{"wholesale":2.3022,"market":"Superior, WI","product":"ULC10"}},
-      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":3.199},"FuelRadarDash":{"standard":3.199}},"terminal":{"wholesale":2.2085,"market":"Superior, WI","product":"ULC10"}}
+      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":3.199},"FuelRadarDash":{"standard":3.199},"GasWiser":{"standard":4.05}},"terminal":{"wholesale":2.2085,"market":"Superior, WI","product":"ULC10"}}
     },
     "55033": {
       "2026-11-16": {"quotes":{"GasBuddy":{"standard":3.39}}},
@@ -141,7 +141,7 @@
       "2026-11-20": {"terminal":{"wholesale":2.2675,"market":"Chippewa Falls, WI","product":"ULC10"}},
       "2026-11-21": {"quotes":{"FuelRadarDash":{"standard":3.149}}},
       "2026-11-23": {"quotes":{"FuelRadarDash":{"standard":3.049},"Kwik Trip":{"standard":2.999}},"terminal":{"wholesale":2.2854,"market":"Chippewa Falls, WI","product":"ULC10"}},
-      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":2.999},"FuelRadarDash":{"standard":2.999,"member":3.029}},"terminal":{"wholesale":2.1939,"market":"Chippewa Falls, WI","product":"ULC10"}}
+      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":2.999},"FuelRadarDash":{"standard":2.999,"member":3.029},"GasWiser":{"standard":3.77}},"terminal":{"wholesale":2.1939,"market":"Chippewa Falls, WI","product":"ULC10"}}
     },
     "55037": {
       "2026-11-17": {"terminal":{"wholesale":2.3917,"market":"Green Bay, WI","product":"ULC10"}},
@@ -312,7 +312,7 @@
       "2026-11-20": {"terminal":{"wholesale":2.278,"market":"Milwaukee, WI","product":"87RE10"}},
       "2026-11-21": {"quotes":{"FuelRadarDash":{"standard":3.199}}},
       "2026-11-23": {"quotes":{"FuelRadarDash":{"standard":3.199},"Kwik Trip":{"standard":3.199}},"terminal":{"wholesale":2.3052,"market":"Milwaukee, WI","product":"87RE10"}},
-      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":3.199},"FuelRadarDash":{"standard":3.199,"member":3.199}},"terminal":{"wholesale":2.2274,"market":"Milwaukee, WI","product":"87RE10"}}
+      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":3.199},"FuelRadarDash":{"standard":3.199,"member":3.199},"GasWiser":{"standard":3.99}},"terminal":{"wholesale":2.2274,"market":"Milwaukee, WI","product":"87RE10"}}
     },
     "55081": {
       "2026-11-17": {"terminal":{"wholesale":2.3449,"market":"Junction City, WI","product":"ULC10"},"quotes":{"Kwik Trip":{"standard":3.599}}},
@@ -340,7 +340,7 @@
       "2026-11-20": {"terminal":{"wholesale":2.4231,"market":"Green Bay, WI","product":"ULC10"}},
       "2026-11-21": {"quotes":{"FuelRadarDash":{"standard":3.249}}},
       "2026-11-23": {"quotes":{"FuelRadarDash":{"standard":3.199},"Kwik Trip":{"standard":3.169}},"terminal":{"wholesale":2.4468,"market":"Green Bay, WI","product":"ULC10"}},
-      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":3.149},"FuelRadarDash":{"standard":3.169,"member":3.169}},"terminal":{"wholesale":2.3418,"market":"Green Bay, WI","product":"ULC10"}}
+      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":3.149},"FuelRadarDash":{"standard":3.169,"member":3.169},"GasWiser":{"standard":3.64}},"terminal":{"wholesale":2.3418,"market":"Green Bay, WI","product":"ULC10"}}
     },
     "55089": {
       "2026-11-17": {"terminal":{"wholesale":2.2492,"market":"Milwaukee, WI","product":"87RE10"},"quotes":{"Kwik Trip":{"standard":3.699}}},
@@ -405,8 +405,8 @@
       "2026-11-17": {"terminal":{"wholesale":2.3047,"market":"Rockford, IL","product":"ULC10"},"quotes":{"GasBuddy":{"standard":3.19},"Kwik Trip":{"standard":3.199}}},
       "2026-11-20": {"terminal":{"wholesale":2.3206,"market":"Rockford, IL","product":"ULC10"}},
       "2026-11-21": {"quotes":{"FuelRadarDash":{"standard":3.099}}},
-      "2026-11-23": {"quotes":{"FuelRadarDash":{"standard":3.099},"Kwik Trip":{"standard":3.099}},"terminal":{"wholesale":2.3409,"market":"Rockford, IL","product":"ULC10"}},
-      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":2.999},"FuelRadarDash":{"standard":3.099}},"terminal":{"wholesale":2.2307,"market":"Rockford, IL","product":"ULC10"}}
+      "2026-11-23": {"quotes":{"FuelRadarDash":{"standard":3.099},"Kwik Trip":{"standard":3.099},"GasWiser":{"standard":3.99}},"terminal":{"wholesale":2.3409,"market":"Rockford, IL","product":"ULC10"}},
+      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":2.999},"FuelRadarDash":{"standard":3.099},"GasWiser":{"standard":3.59}},"terminal":{"wholesale":2.2307,"market":"Rockford, IL","product":"ULC10"}}
     },
     "55107": {
       "2026-11-16": {"quotes":{"GasBuddy":{"standard":3.49}}},
@@ -453,7 +453,7 @@
       "2026-11-20": {"terminal":{"wholesale":2.3328,"market":"Waupun, WI","product":"ULC10"}},
       "2026-11-21": {"quotes":{"FuelRadarDash":{"standard":2.949}}},
       "2026-11-23": {"quotes":{"FuelRadarDash":{"standard":2.949},"Kwik Trip":{"standard":2.949}},"terminal":{"wholesale":2.3534,"market":"Waupun, WI","product":"ULC10"}},
-      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":2.949},"FuelRadarDash":{"standard":2.949}},"terminal":{"wholesale":2.2386,"market":"Waupun, WI","product":"ULC10"}}
+      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":2.949},"FuelRadarDash":{"standard":2.949},"GasWiser":{"standard":3.65}},"terminal":{"wholesale":2.2386,"market":"Waupun, WI","product":"ULC10"}}
     },
     "55119": {
       "2026-11-17": {"terminal":{"wholesale":2.2791,"market":"Chippewa Falls, WI","product":"ULC10"}},
@@ -511,7 +511,7 @@
       "2026-11-20": {"terminal":{"wholesale":2.278,"market":"Milwaukee, WI","product":"87RE10"}},
       "2026-11-21": {"quotes":{"FuelRadarDash":{"standard":3.199}}},
       "2026-11-23": {"quotes":{"FuelRadarDash":{"standard":3.159},"Kwik Trip":{"standard":3.159}},"terminal":{"wholesale":2.3052,"market":"Milwaukee, WI","product":"87RE10"}},
-      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":3.149},"FuelRadarDash":{"standard":3.159,"member":3.149}},"terminal":{"wholesale":2.2274,"market":"Milwaukee, WI","product":"87RE10"}}
+      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":3.149},"FuelRadarDash":{"standard":3.159,"member":3.149},"GasWiser":{"standard":4.04}},"terminal":{"wholesale":2.2274,"market":"Milwaukee, WI","product":"87RE10"}}
     },
     "55135": {
       "2026-11-17": {"terminal":{"wholesale":2.3449,"market":"Junction City, WI","product":"ULC10"},"quotes":{"Kwik Trip":{"standard":3.499}}},
@@ -532,7 +532,7 @@
       "2026-11-20": {"terminal":{"wholesale":2.3328,"market":"Waupun, WI","product":"ULC10"}},
       "2026-11-21": {"quotes":{"FuelRadarDash":{"standard":3.299}}},
       "2026-11-23": {"quotes":{"FuelRadarDash":{"standard":3.279},"Kwik Trip":{"standard":3.279}},"terminal":{"wholesale":2.3534,"market":"Waupun, WI","product":"ULC10"}},
-      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":3.179},"FuelRadarDash":{"standard":3.279}},"terminal":{"wholesale":2.2386,"market":"Waupun, WI","product":"ULC10"}}
+      "2026-11-24": {"quotes":{"Kwik Trip":{"standard":3.179},"FuelRadarDash":{"standard":3.279},"GasWiser":{"standard":3.99}},"terminal":{"wholesale":2.2386,"market":"Waupun, WI","product":"ULC10"}}
     },
     "55141": {
       "2026-11-17": {"terminal":{"wholesale":2.3449,"market":"Junction City, WI","product":"ULC10"},"quotes":{"Kwik Trip":{"standard":3.649}}},

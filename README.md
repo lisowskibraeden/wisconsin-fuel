@@ -12,7 +12,7 @@ At street zoom, **Available sources** shows dated station prices alongside mappe
 
 The Pages workflow publishes `site/` on pushes to `main`. The refresh workflow is scheduled daily for **10:40 a.m. America/Chicago**, including daylight saving time. It can also be run from the Actions tab. GitHub may queue scheduled runs when Actions is busy.
 
-The daily workflow runs Dane Fuel’s paginated GasBuddy search in Chrome across rotating Wisconsin cities and counties. It also checks the public Dane Fuel export, direct Kwik Trip quotes, dated FuelRadarDash snapshots for Kwik Trip and Costco, and the AXXIS terminal report. Data from unavailable sources keeps its original timestamps. Costco and other membership quotes appear when **Member prices** is selected. The workflow records county history, validates the site, commits changed data, and deploys that commit to Pages.
+The daily workflow runs Dane Fuel’s paginated GasBuddy search in Chrome across rotating Wisconsin cities and counties. It also checks the public Dane Fuel export, direct Kwik Trip quotes, dated FuelRadarDash snapshots for Kwik Trip and Costco, timestamped GasWiser city listings, and the AXXIS terminal report. Data from unavailable sources keeps its original timestamps. Costco and other membership quotes appear when **Member prices** is selected. The workflow records county history, validates the site, commits changed data, and deploys that commit to Pages.
 
 For the initial deployment, run these commands from the project folder with GitHub CLI authenticated. If using an extracted source ZIP, first initialize the Git repository and commit the files with `git init -b main`, `git add .`, and `git commit -m "Build the Wisconsin fuel map"`. Set `origin` to the GitHub repository if it has not been added yet.
 
@@ -57,6 +57,7 @@ The estimated minimum reuses Dane Fuel's automatic terminal-cost scenario: `(who
 - [Wisconsin fuel-blend requirements](https://dnr.wisconsin.gov/topic/AirQuality/Mobile.html)
 - [GasBuddy Wisconsin listings](https://www.gasbuddy.com/gasprices/wisconsin)
 - [FuelRadarDash Wisconsin Kwik Trip snapshot](https://fuelradardash.com/gas-prices/brands/kwik-trip/wisconsin/)
+- [GasWiser Wisconsin](https://www.gaswiser.com/state/wi)
 - [Kwik Trip official store directory](https://www.kwiktrip.com/maps-downloads/store-list)
 - [OpenStreetMap tile policy](https://operations.osmfoundation.org/policies/tiles/)
 - [Geofabrik Wisconsin OpenStreetMap extract](https://download.geofabrik.de/north-america/us/wisconsin.html)

@@ -61,7 +61,8 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           data_files=(site/data/terminal-report.txt site/data/terminals.json site/data/fallback.json
-            site/data/gasbuddy-current.json site/data/published-prices.json site/data/costco-prices.json site/data/history.json)
+            site/data/gasbuddy-current.json site/data/published-prices.json site/data/costco-prices.json
+            site/data/gaswiser-prices.json site/data/history.json)
           git add -- "${data_files[@]}"
           if ! git diff --cached --quiet; then
             git commit -m "Update Wisconsin fuel data ($(TZ=America/Chicago date +%F))"

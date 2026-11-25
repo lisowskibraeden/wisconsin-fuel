@@ -6,6 +6,7 @@ import {cachedStationLocation, parsePageSample} from './import-gasbuddy.mjs';
 import {normalizePublishedPrices} from './import-published-prices.mjs';
 import {parseStoreDirectory, readCostcoPrices, readPublisherSnapshot, STORE_DIRECTORY} from './source-pages.mjs';
 import {locateSearchReports, statewideSearchAreas} from './gasbuddy-statewide.mjs';
+import {collectGasWiser} from './gaswiser.mjs';
 
 const DATA = new URL('../site/data/', import.meta.url);
 const AXXIS = 'https://old.axxispetro.com/download/wisconsin-cta.txt';
@@ -226,6 +227,18 @@ export async function refresh({data=DATA,fetchResource=fetch,collectGasBuddy=nul
       if (!current) return 'No newer Costco snapshot.';
       await write('costco-prices.json',current);
       return current.stations.filter(row => row.observedAt === current.publishedAt).length + ' Costco member prices updated.';
+    }),
+    attempt('GasWiser', async () => {
+      const previous = await readData('gaswiser-prices.json').catch(error => {
+        if (error.code !== 'ENOENT') throw error;
+        return {stations:[]};
+      });
+      const current = await collectGasWiser(read,counties,now);
+      const {rows,updated} = mergeQuotes(previous.stations.filter(row => fresh(row,now)),current.stations);
+      if (updated || rows.length !== previous.stations.length) {
+        await write('gaswiser-prices.json',{source:'GasWiser',retrievedAt:attemptedAt,stations:rows.sort((a,b) => a.id.localeCompare(b.id))});
+      }
+      return `${updated} newer reports in ${current.checked} checked cities.`;
     }),
   ]);
   return {states,successful};

@@ -35,6 +35,7 @@ assert.deepEqual(embedded['data/published-prices.json'],published);
 const costco = await data('costco-prices.json');
 assert.ok(costco.stations.length > 0 && costco.stations.every(s => s.membership && s.source === 'FuelRadarDash' && s.timeBasis === 'published'));
 assert.deepEqual(embedded['data/costco-prices.json'],costco);
+assert.deepEqual(embedded['data/gaswiser-prices.json'],await data('gaswiser-prices.json'));
 assert.deepEqual(embedded['data/history.json'],await data('history.json'));
 assert.deepEqual(embedded['data/station-locations.json'],await data('station-locations.json'));
 assert.ok(!bundle.includes('basemaps.cartocdn.com'));

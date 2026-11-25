@@ -14,8 +14,9 @@ test('direct quote freshness uses retrieval without inventing a report time',()=
 test('the lowest price uses the newest direct or reported quote per station', () => {
   const direct={...station,id:'kt1',source:'Kwik Trip',price:3.3,timeBasis:'retrieved'};
   const published={...direct,id:'published:kt1',source:'FuelRadarDash',price:3.2,timeBasis:'published',observedAt:'2026-11-18T01:55:00Z'};
+  const gaswiser={...station,id:'gw1',source:'GasWiser',address:'123 Main Street',price:3.1,reportedAt:'2026-11-18T01:55:00Z'};
   const other={...station,id:'2',address:'825 Main St',price:3.4};
-  assert.deepEqual(eligible([station,published,direct,other],{now}),[direct,other]);
+  assert.deepEqual(eligible([station,published,direct,gaswiser,other],{now}),[direct,other]);
   const newerReport={...station,price:3.6,reportedAt:'2026-11-18T01:45:00Z'};
   assert.deepEqual(eligible([other,direct,newerReport,published],{now}),[other,newerReport]);
   assert.deepEqual(eligible([station,published,direct],{now,source:'GasBuddy'}),[station]);

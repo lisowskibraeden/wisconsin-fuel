@@ -5,8 +5,8 @@ import {countyModels, floorFor, fresh, inside, sourceTime} from '../site/model.j
 
 const dataRoot = new URL('../site/data/', import.meta.url);
 const localDate = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Chicago'});
-const sourceFiles = ['gasbuddy-archive.json', 'gasbuddy-current.json', 'fallback.json', 'published-prices.json', 'costco-prices.json'];
-const quoteSources = new Set(['GasBuddy', 'Kwik Trip', 'FuelRadarDash']);
+const sourceFiles = ['gasbuddy-archive.json', 'gasbuddy-current.json', 'fallback.json', 'published-prices.json', 'costco-prices.json', 'gaswiser-prices.json'];
+const quoteSources = new Set(['GasBuddy', 'Kwik Trip', 'FuelRadarDash', 'GasWiser']);
 
 export function mergeHistory(history, counties, stations, reports) {
   const countyById = new Map(counties.map(county => [county.id, county]));

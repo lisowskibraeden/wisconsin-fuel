@@ -8,6 +8,7 @@ import {countyModels, eligible, parseTerminals} from '../site/model.js';
 import {refresh} from '../scripts/refresh.mjs';
 import {COSTCO_RADAR, readCostcoPrices, readPublisherSnapshot} from '../scripts/source-pages.mjs';
 import {locateSearchReports} from '../scripts/gasbuddy-statewide.mjs';
+import {parseGasWiserCity} from '../scripts/gaswiser.mjs';
 
 const fixtureTerminals = await fs.readFile(new URL('./fixtures/terminal-report.txt',import.meta.url),'utf8');
 const now = Date.parse('2026-11-22T16:40:00Z');
@@ -51,6 +52,19 @@ test('search reports use exact Wisconsin locations outside Dane County',async ()
     read:async () => assert.fail('An exact address match should require no network request')});
   assert.equal(found[0].countyFips,'55009');
   assert.equal(found[0].reportedAt,quote.reportedAt);
+});
+
+test('GasWiser uses the station timestamp and rejects stale or out-of-state rows', () => {
+  const station = {store_name:'Shell',street_address:'101 Main St',city:'Green Bay',state:'WI',country:'US',
+    canonical_path:'/station/green-bay-wi/101-main-st',latitude:44.52,longitude:-88.01,currency:'USD',price_unit:'gallon',
+    latest_price:3.29,last_updated:'2026-11-22T15:30:00Z'};
+  const stations = [station,{...station,last_updated:date},{...station,state:'MN'}];
+  const payload = {c:[{p:{cityName:'green-bay-wi',initialCityInfo:{stations}}}]};
+  const html = `<script data-tsr-stream-part="">render(${JSON.stringify(JSON.stringify(payload))})</script>`;
+  const [price,...other] = parseGasWiserCity(html,'green-bay-wi',counties,now);
+  assert.equal(price.reportedAt,station.last_updated);
+  assert.equal(price.countyFips,'55009');
+  assert.deepEqual(other,[]);
 });
 
 test('round-trip refresh preserves failed sources and old stations while recording new dated observations',async t => {

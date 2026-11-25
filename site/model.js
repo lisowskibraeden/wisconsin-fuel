@@ -1,3 +1,5 @@
+import {addressCityKey} from './locations.js';
+
 export const RFG = new Set(['Kenosha','Milwaukee','Ozaukee','Racine','Washington','Waukesha']);
 export const MARKETS = [
   ['291','Dubuque, IA',42.5006,-90.6646],['335','Chicago, IL',41.8781,-87.6298],
@@ -9,6 +11,7 @@ export const MARKETS = [
   ['973','Waupun, WI',43.6333,-88.7296]
 ].map(([id,name,lat,lng])=>({id,name,lat,lng}));
 export const sourceTime = s => s.timeBasis === 'retrieved' || s.timeBasis === 'published' ? s.observedAt : s.reportedAt;
+const sourceRank = station => station.timeBasis === 'published' ? 0 : station.source === 'GasWiser' ? 1 : 2;
 export function fresh(s,now=Date.now(),maxAge=24) {
   const t=Date.parse(sourceTime(s));
   return s.state==='WI' && s.fuel==='regular' && Number.isFinite(s.price) && s.price>=.5 && s.price<=20 && Number.isFinite(t) && t<=now+300000 && now-t<=maxAge*3600000;
@@ -18,13 +21,11 @@ export function eligible(stations,{now=Date.now(),source='available',members=fal
   const unique=new Map();
   for (const station of selected) {
     const key = station.address && station.city
-      ? `${station.countyFips}|${station.address}|${station.city}`.toUpperCase().replace(/[^A-Z0-9|]/g, '')
+      ? `${station.countyFips}|${addressCityKey(station.address,station.city)}`
       : station.id;
     const previous = unique.get(key);
-    const published = station.timeBasis === 'published';
-    const previousPublished = previous?.timeBasis === 'published';
-    if (!previous || (previousPublished && !published) ||
-        (published === previousPublished && Date.parse(sourceTime(station)) > Date.parse(sourceTime(previous)))) {
+    if (!previous || sourceRank(station) > sourceRank(previous) ||
+        (sourceRank(station) === sourceRank(previous) && Date.parse(sourceTime(station)) > Date.parse(sourceTime(previous)))) {
       unique.set(key, station);
     }
   }
